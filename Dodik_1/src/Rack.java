@@ -4,7 +4,7 @@ public class Rack extends inCloset {
     }
     @Override
     public void addClothes(Clothes cl){
-        if(cl.getId()==4 || cl.getId()==5) {
+        if(cl.getId()==Types.HOODIES || cl.getId()==Types.PYJAMAS) {
             super.getClothes().add(cl);
             System.out.println("Clothes added!");
         } else {

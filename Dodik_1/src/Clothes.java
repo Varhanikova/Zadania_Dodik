@@ -1,8 +1,8 @@
 public class Clothes {
-    private int id;
+    private Types id;
     private String nazov;
 
-    public Clothes(int p_id,String p_nazov) {
+    public Clothes(Types p_id,String p_nazov) {
         nazov = p_nazov;
         id = p_id;
     }
@@ -10,7 +10,7 @@ public class Clothes {
     public String toString() {
         return "id: " + id;
     }
-    public int getId(){
+    public Types getId(){
         return id;
     }
     public String getNazov(){return nazov;}

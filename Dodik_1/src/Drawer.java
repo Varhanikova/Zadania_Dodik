@@ -4,7 +4,7 @@ public class Drawer extends inCloset{
     }
     @Override
     public void addClothes(Clothes cl){
-        if( cl.getId()==1 || cl.getId()==2 || cl.getId()==5) {
+        if( cl.getId() == Types.SOCKS || cl.getId()==Types.TSHIRT || cl.getId()==Types.PYJAMAS ) {
             super.getClothes().add(cl);
             System.out.println("Clothes added!");
         } else {

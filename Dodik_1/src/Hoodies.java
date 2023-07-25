@@ -1,7 +1,7 @@
 public class Hoodies extends Clothes {
 
     public Hoodies( String p_nazov) {
-        super(4, p_nazov);
+        super(Types.HOODIES, p_nazov);
     }
     @Override
     public String toString(){
