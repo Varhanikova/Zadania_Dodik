@@ -3,13 +3,14 @@ public class main {
     public static void main(String[] args) {
         Closet closet = new Closet(1);
 
-        Tshirt t1 = new Tshirt("a");
-        Tshirt t2 = new Tshirt("b");
-        Socks s1 = new Socks("a");
-        Socks s2 = new Socks("b");
-        Hoodies h1 = new Hoodies("a");
-        Hoodies h2 = new Hoodies("b");
         Pyjamas p1 = new Pyjamas("p");
+
+        Clothes c1 = new Clothes(Types.PYJAMAS, "pyj");
+        Clothes c2 = new Clothes(Types.TSHIRT, "pyj");
+        Clothes c3 = new Clothes(Types.SOCKS, "pyj");
+        Clothes c4 = new Clothes(Types.HOODIES, "pyj");
+        Clothes c5 = new Clothes(Types.HOODIES, "pyj");
+        Clothes c6 = new Clothes(Types.TSHIRT, "pyj");
 
         Shelf sh1 = new Shelf(1);
         Rack r1 = new Rack(1);
@@ -18,13 +19,13 @@ public class main {
         closet.addinClosets(sh1);
         closet.addinClosets(r1);
         closet.addinClosets(dr1);
-        closet.getInClosets(0).addClothes(t1);
-        closet.getInClosets(2).addClothes(h2);
-        closet.getInClosets(2).addClothes(s1);
-        closet.getInClosets(2).addClothes(p1);
-        closet.getInClosets(0).addClothes(s2);
-        closet.getInClosets(1).addClothes(h2);
-        closet.getInClosets(1).addClothes(t2);
+        closet.getInClosets(0).addClothes(c1);
+        closet.getInClosets(2).addClothes(c2);
+        closet.getInClosets(2).addClothes(c3);
+        closet.getInClosets(2).addClothes(c4);
+        closet.getInClosets(0).addClothes(c5);
+        closet.getInClosets(1).addClothes(c6);
+        closet.getInClosets(1).addClothes(p1);
 
 
         System.out.println(closet.toString());
