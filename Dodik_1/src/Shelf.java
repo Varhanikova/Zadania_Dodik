@@ -1,6 +1,3 @@
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
 public class Shelf extends inCloset {
 
     public Shelf(int pid){

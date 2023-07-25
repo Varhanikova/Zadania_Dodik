@@ -9,6 +9,7 @@ public class main {
         Socks s2 = new Socks("b");
         Hoodies h1 = new Hoodies("a");
         Hoodies h2 = new Hoodies("b");
+        Pyjamas p1 = new Pyjamas("p");
 
         Shelf sh1 = new Shelf(1);
         Rack r1 = new Rack(1);
@@ -20,6 +21,8 @@ public class main {
         closet.getInClosets(0).addClothes(t1);
         closet.getInClosets(2).addClothes(h2);
         closet.getInClosets(2).addClothes(s1);
+        closet.getInClosets(2).addClothes(p1);
+        closet.getInClosets(0).addClothes(s2);
         closet.getInClosets(1).addClothes(h2);
         closet.getInClosets(1).addClothes(t2);
 
