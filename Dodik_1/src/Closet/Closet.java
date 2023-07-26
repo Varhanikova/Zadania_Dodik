@@ -1,6 +1,7 @@
+package Closet;
+
 import InCloset.inCloset;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Closet {

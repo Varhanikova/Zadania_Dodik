@@ -1,3 +1,5 @@
+package Closet;
+
 import Clothes.Clothes;
 import Clothes.Types;
 import Clothes.Socks;
@@ -5,10 +7,6 @@ import Clothes.Hoodies;
 import Clothes.Pyjamas;
 import Clothes.Tshirt;
 import Clothes.Leggins;
-import InCloset.inCloset;
-import Testy.InClosetTest;
-
-import java.util.ArrayList;
 
 public class ClothesFactory {
 

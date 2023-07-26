@@ -12,7 +12,6 @@ public class inCloset {
         clothes = new ArrayList<Clothes>();
     }
     public void addClothes(Clothes cl){
-
     }
     public ArrayList<Clothes> getClothes(){
         return clothes;
