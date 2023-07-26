@@ -81,7 +81,7 @@ public class InClosetTest {
 
     }
     @Test
-    public void testDeleteFromShelf()
+    public void testDeleteFromShelf2Types()
     {
         Closet closet = Closet.getInstance();
         inCloset sh1 = StorageFactory.createStorage(Storage.SHELF);
