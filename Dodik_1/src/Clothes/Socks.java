@@ -1,4 +1,6 @@
-public class Socks extends Clothes{
+package Clothes;
+
+public class Socks extends Clothes {
 
 
     public Socks(String p_nazov) {
@@ -7,6 +9,6 @@ public class Socks extends Clothes{
     }
     @Override
     public String toString(){
-        return  getId() + ": Socks " + getNazov();
+        return  getId() + ": Clothes.Clothes.Socks " + getNazov();
     }
 }

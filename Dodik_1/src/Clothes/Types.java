@@ -1,3 +1,5 @@
+package Clothes;
+
 public enum Types{
     SOCKS,
     TSHIRT,

@@ -1,17 +1,22 @@
+package InCloset;
+
+import Clothes.Clothes;
+import InCloset.inCloset;
+
 public class Shelf extends inCloset {
 
-    public Shelf(int pid){
-       super(pid);
+    public Shelf(){
+       super(Storage.SHELF);
     }
     @Override
     public void addClothes(Clothes cl)
     {
         super.getClothes().add(cl);
-        System.out.println("Clothes added!");
+        System.out.println("Clothes.Clothes added!");
     }
 
     public String toString(){
-        String str = getId() + " - Shelf: \n";
+        String str = getId() + "\n";
         for (Clothes clothe : this.getClothes()) {
             str += clothe.toString() + "\n";
         }

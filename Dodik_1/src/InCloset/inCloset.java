@@ -1,9 +1,13 @@
+package InCloset;
+
+import Clothes.Clothes;
+
 import java.util.ArrayList;
 
 public class inCloset {
-    private int id;
+    private Storage id;
     private ArrayList<Clothes> clothes;
-    public inCloset(int pid){
+    public inCloset(Storage pid){
         id = pid;
         clothes = new ArrayList<Clothes>();
     }
@@ -13,7 +17,7 @@ public class inCloset {
     public ArrayList<Clothes> getClothes(){
         return clothes;
     }
-    public int getId(){return  id;}
+    public Storage getId(){return  id;}
     public String toString(){
         String str = id + ": ";
         for (Clothes clothe : clothes) {

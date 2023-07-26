@@ -1,18 +1,27 @@
+import InCloset.inCloset;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Closet {
-    private int id;
+    private static Closet single_instance=null;
     private ArrayList<inCloset> inClosets;
 
-    public Closet(int p_id){
-        id = p_id;
+    private Closet(){
         inClosets = new ArrayList<inCloset>();
     }
-
-    public inCloset getInClosets(int index)
+    public static synchronized Closet getInstance()
     {
-        return inClosets.get(index);
+        if (single_instance == null)
+            single_instance = new Closet();
+
+        return single_instance;
     }
+    public ArrayList<inCloset> getInClosets()
+    {
+        return inClosets;
+    }
+
     public void addinClosets(inCloset incl){
         inClosets.add(incl);
     }

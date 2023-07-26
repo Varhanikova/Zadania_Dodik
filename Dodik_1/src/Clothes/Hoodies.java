@@ -1,3 +1,5 @@
+package Clothes;
+
 public class Hoodies extends Clothes {
 
     public Hoodies( String p_nazov) {

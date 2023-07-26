@@ -1,10 +1,12 @@
-public class Tshirt extends Clothes{
+package Clothes;
+
+public class Tshirt extends Clothes {
 
     public Tshirt(String p_nazov) {
         super(Types.TSHIRT, p_nazov);
     }
     @Override
     public String toString(){
-        return getId()+ ": Tshirt " + getNazov();
+        return getId()+ ": Clothes.Clothes.Tshirt " + getNazov();
     }
 }
