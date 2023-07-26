@@ -16,4 +16,5 @@ public class Clothes {
         return id;
     }
     public String getNazov(){return nazov;}
+
 }

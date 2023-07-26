@@ -9,6 +9,6 @@ public class Socks extends Clothes {
     }
     @Override
     public String toString(){
-        return  getId() + ": Clothes.Clothes.Socks " + getNazov();
+        return  getId() + " " + getNazov();
     }
 }

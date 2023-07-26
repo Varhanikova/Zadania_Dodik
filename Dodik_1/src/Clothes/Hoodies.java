@@ -7,6 +7,6 @@ public class Hoodies extends Clothes {
     }
     @Override
     public String toString(){
-        return  getId()+ ": Hoodie " + getNazov();
+        return  getId()+ " " + getNazov();
     }
 }

@@ -12,7 +12,7 @@ public class Shelf extends inCloset {
     public void addClothes(Clothes cl)
     {
         super.getClothes().add(cl);
-        System.out.println("Clothes.Clothes added!");
+        System.out.println(cl.getNazov() + " added!");
     }
 
     public String toString(){

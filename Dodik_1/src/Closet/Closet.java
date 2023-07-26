@@ -1,5 +1,6 @@
 package Closet;
 
+import InCloset.Storage;
 import InCloset.inCloset;
 
 import java.util.ArrayList;
@@ -21,6 +22,13 @@ public class Closet {
     public ArrayList<inCloset> getInClosets()
     {
         return inClosets;
+    }
+    public inCloset getInCloset(Storage st){
+        inCloset in = null;
+        for(inCloset incl: inClosets){
+            in= incl.getId() != st ? null : incl;
+        }
+        return in;
     }
 
     public void addinClosets(inCloset incl){

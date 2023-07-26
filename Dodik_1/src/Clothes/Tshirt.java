@@ -7,6 +7,6 @@ public class Tshirt extends Clothes {
     }
     @Override
     public String toString(){
-        return getId()+ ": Clothes.Clothes.Tshirt " + getNazov();
+        return getId()+ " " + getNazov();
     }
 }

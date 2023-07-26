@@ -31,11 +31,11 @@ public class ClothesFactory {
         }
         return c;
     }
-    public static void fillClosetRandom(Closet cl){
+    public static void fillClosetRandom(Closet cl, int sum){
         Clothes c=null;
 
         for(Types typ: Types.values()){
-            for(int i=0;i<3;i++){
+            for(int i=0;i<sum;i++){
                 c =  ClothesFactory.createClothes(typ, typ.name() +i);
                 for(int j = 0; j < cl.getInClosets().size(); j++){
                     cl.getInClosets().get(j).addClothes(c);
