@@ -25,16 +25,15 @@ public class Kalkulacka {
             }
             res = calculate(nums.get(nums.size()-1));
             System.out.println("Priklad " + i + ", má výsledok: " + res);
-            keyword="";
+            keyword="";i++;
             keywords.clear();
             nums.clear();
         }
 
         sc.close();
-      // return calculate(nums.get(nums.size()-1));
     }
 
-    public int calculate(int result){
+    private int calculate(int result){
         String keyword;  int num;
         for(int i =0;i<nums.size()-1;i++){
             keyword = keywords.get(i);
