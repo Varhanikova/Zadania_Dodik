@@ -1,4 +1,5 @@
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,7 +26,7 @@ public class TestingClass {
 
         Kalkulacka kal = new Kalkulacka("C:\\Users\\Nadis\\IdeaProjects\\Dodik_2\\filename.txt");
         kal.doCalculationFromFile();
-        assert(("Príklad 1, má výsledok: 5\r\n").equals(outputStreamCaptor.toString()));
+        Assert.assertEquals(("Príklad 1, má výsledok: 5\r\n"),(outputStreamCaptor.toString()));
     }
     @Test
     public void testKalkulackaZlyPrikaz() throws IOException {
@@ -36,7 +37,7 @@ public class TestingClass {
 
         Kalkulacka kal = new Kalkulacka("C:\\Users\\Nadis\\IdeaProjects\\Dodik_2\\filename.txt");
         kal.doCalculationFromFile();
-        assert(("Nesprávny príkaz!!\r\nPríklad 1, má výsledok: "+Integer.MIN_VALUE+"\r\n").equals(outputStreamCaptor.toString()));
+        Assert.assertEquals(("Nesprávny príkaz!!\r\nPríklad 1, má výsledok: "+Integer.MIN_VALUE+"\r\n"),(outputStreamCaptor.toString()));
     }
     @Test
     public void testKalkulackaChybajuceCislo() throws IOException {
@@ -47,7 +48,7 @@ public class TestingClass {
 
         Kalkulacka kal = new Kalkulacka("C:\\Users\\Nadis\\IdeaProjects\\Dodik_2\\filename.txt");
         kal.doCalculationFromFile();
-        assert(("Nesprávne číslo!!\r\nNesprávny príkaz!!\r\nPríklad 1, má výsledok: "+Integer.MIN_VALUE+"\r\n").equals(outputStreamCaptor.toString()));
+        Assert.assertEquals(("Nesprávne číslo!!\r\nNesprávny príkaz!!\r\nPríklad 1, má výsledok: "+Integer.MIN_VALUE+"\r\n"),(outputStreamCaptor.toString()));
     }
     @Test
     public void testKalkulackaChybajuciPrikaz() throws IOException {
@@ -58,6 +59,6 @@ public class TestingClass {
 
         Kalkulacka kal = new Kalkulacka("C:\\Users\\Nadis\\IdeaProjects\\Dodik_2\\filename.txt");
         kal.doCalculationFromFile();
-        assert(("Nesprávne číslo!!\r\nNesprávny príkaz!!\r\nPríklad 1, má výsledok: "+Integer.MIN_VALUE+"\r\n").equals(outputStreamCaptor.toString()));
+        Assert.assertEquals(("Nesprávne číslo!!\r\nNesprávny príkaz!!\r\nPríklad 1, má výsledok: "+Integer.MIN_VALUE+"\r\n"),(outputStreamCaptor.toString()));
     }
 }
