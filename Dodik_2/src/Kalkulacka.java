@@ -3,31 +3,37 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class kalkulacka {
+public class Kalkulacka {
    private ArrayList<String> keywords = new ArrayList<>();
-   private ArrayList<Integer> nums =  new ArrayList<Integer>();
-    public kalkulacka(String name) throws FileNotFoundException {
-        Scanner sc = loadFile(name);
-        int result= getLast(sc);
-        result = calculate(result);
-        System.out.println("result: "  + result);
+   private ArrayList<Integer> nums =  new ArrayList<>();
+   private String name;
+   public Kalkulacka(String p_name)  {
 
+        name = p_name;
     }
-    private Scanner loadFile(String name) throws FileNotFoundException {
+    public void loadFile() throws FileNotFoundException {
         File file = new File(
                 name);
-        return new Scanner(file);
-    }
-    public int getLast(Scanner sc){
-        String keyword ="";  int num;
-        while (!keyword.equals("apply")){
-            keyword = sc.next();
-            num = sc.nextInt();
-            keywords.add(keyword);
-            nums.add(num);
+        Scanner sc = new Scanner(file);
+        String keyword ="";  int num; int i=1;int res;
+        while(sc.hasNextLine()){
+            while (!keyword.equals("apply")){
+                keyword = sc.next();
+                num = sc.nextInt();
+                keywords.add(keyword);
+                nums.add(num);
+            }
+            res = calculate(nums.get(nums.size()-1));
+            System.out.println("Priklad " + i + ", má výsledok: " + res);
+            keyword="";
+            keywords.clear();
+            nums.clear();
         }
-        return nums.get(nums.size()-1);
+
+        sc.close();
+      // return calculate(nums.get(nums.size()-1));
     }
+
     public int calculate(int result){
         String keyword;  int num;
         for(int i =0;i<nums.size()-1;i++){
@@ -49,5 +55,6 @@ public class kalkulacka {
         }
         return result;
     }
+
 }
 
