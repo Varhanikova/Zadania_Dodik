@@ -8,7 +8,6 @@ public class Kalkulacka {
    private ArrayList<Integer> nums =  new ArrayList<>();
    private String name;
    public Kalkulacka(String p_name)  {
-
         name = p_name;
     }
     public void doCalculationFromFile() throws FileNotFoundException {
@@ -18,8 +17,8 @@ public class Kalkulacka {
         String keyword ="";  int num; int i=1;int res;
         while(sc.hasNextLine()){
             while (!keyword.equals("apply")){
-                keyword = sc.next();
-                num = sc.nextInt();
+                keyword = sc.hasNext() ?  sc.next() : "";
+                num = sc.hasNextInt() ? sc.nextInt() : Integer.MIN_VALUE;
                 keywords.add(keyword);
                 nums.add(num);
             }
@@ -38,6 +37,9 @@ public class Kalkulacka {
         for(int i =0;i<nums.size()-1;i++){
             keyword = keywords.get(i);
             num = nums.get(i);
+            if(num == Integer.MIN_VALUE)  {
+                System.out.println("Nesprávne číslo!!");
+            }
             switch (keyword){
                 case "add":
                     result +=num;
@@ -50,6 +52,10 @@ public class Kalkulacka {
                     break;
                 case "minus":
                     result-=num;
+                    break;
+                default:
+                    System.out.println("Nesprávny príkaz!! ");
+                    result=Integer.MIN_VALUE;
             }
         }
         return result;
