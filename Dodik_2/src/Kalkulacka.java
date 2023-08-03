@@ -16,14 +16,17 @@ public class Kalkulacka {
         Scanner sc = new Scanner(file);
         String keyword ="";  int num; int i=1;int res;
         while(sc.hasNextLine()){
-            while (!keyword.equals("apply")){
+            while (!keyword.equals("apply") && sc.hasNextLine()){
                 keyword = sc.hasNext() ?  sc.next() : "";
                 num = sc.hasNextInt() ? sc.nextInt() : Integer.MIN_VALUE;
                 keywords.add(keyword);
                 nums.add(num);
+
             }
-            res = calculate(nums.get(nums.size()-1));
-            System.out.println("Príklad " + i + ", má výsledok: " + res);
+            if(nums.size()>0 && keyword.equals("apply")) {
+                res = calculate(nums.get(nums.size() - 1));
+                System.out.println("Príklad " + i + ", má výsledok: " + res);
+            }
             keyword="";i++;
             keywords.clear();
             nums.clear();

@@ -61,4 +61,15 @@ public class TestingClass {
         kal.doCalculationFromFile();
         Assert.assertEquals(("Nesprávne číslo!!\r\nNesprávny príkaz!!\r\nPríklad 1, má výsledok: "+Integer.MIN_VALUE+"\r\n"),(outputStreamCaptor.toString()));
     }
+    @Test
+    public void testKalkulackaChybajuciApply() throws IOException {
+
+        FileWriter myWriter = new FileWriter("filename.txt");
+        myWriter.write("minus 2 \n add 2");
+        myWriter.close();
+
+        Kalkulacka kal = new Kalkulacka("C:\\Users\\Nadis\\IdeaProjects\\Dodik_2\\filename.txt");
+        kal.doCalculationFromFile();
+        Assert.assertEquals((""),(outputStreamCaptor.toString()));
+    }
 }

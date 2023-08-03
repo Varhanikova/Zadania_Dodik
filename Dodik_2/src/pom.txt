@@ -1,9 +1,2 @@
 add 2
-multiply 3
-divide 2
-minus 1
-apply 4
 add 1
-minus 1
-divide
-apply 5
