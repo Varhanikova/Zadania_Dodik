@@ -11,7 +11,7 @@ public class Kalkulacka {
 
         name = p_name;
     }
-    public void loadFile() throws FileNotFoundException {
+    public void doCalculationFromFile() throws FileNotFoundException {
         File file = new File(
                 name);
         Scanner sc = new Scanner(file);
