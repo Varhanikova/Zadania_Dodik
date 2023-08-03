@@ -23,22 +23,22 @@ public class Kalkulacka {
                 nums.add(num);
             }
             res = calculate(nums.get(nums.size()-1));
-            System.out.println("Priklad " + i + ", má výsledok: " + res);
+            System.out.println("Príklad " + i + ", má výsledok: " + res);
             keyword="";i++;
             keywords.clear();
             nums.clear();
         }
-
         sc.close();
     }
 
-    private int calculate(int result){
+    public int calculate(int result){
         String keyword;  int num;
         for(int i =0;i<nums.size()-1;i++){
             keyword = keywords.get(i);
             num = nums.get(i);
             if(num == Integer.MIN_VALUE)  {
                 System.out.println("Nesprávne číslo!!");
+                keyword="";
             }
             switch (keyword){
                 case "add":
@@ -54,7 +54,7 @@ public class Kalkulacka {
                     result-=num;
                     break;
                 default:
-                    System.out.println("Nesprávny príkaz!! ");
+                    System.out.println("Nesprávny príkaz!!");
                     result=Integer.MIN_VALUE;
             }
         }

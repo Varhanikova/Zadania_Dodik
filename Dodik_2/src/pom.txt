@@ -5,5 +5,5 @@ minus 1
 apply 4
 add 1
 minus 1
-divide 2
+divide
 apply 5
