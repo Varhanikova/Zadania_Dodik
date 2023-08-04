@@ -30,7 +30,6 @@ public class TestingClass {
     }
     @Test
     public void testStringSpravne(){
-
         Kalkulacka kal = new Kalkulacka("add 1\r\nminus 3\r\napply 6");
         kal.doCalculationFromString();
         Assert.assertEquals(("Príklad 1, má výsledok: 4\r\n"),(outputStreamCaptor.toString()));

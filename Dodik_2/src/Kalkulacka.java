@@ -31,18 +31,24 @@ public class Kalkulacka {
         calculate();
     }
     public void doCalculationFromString() {
-            String[] pom = name.split("\\s+");
-            int num = 0;
-            for(int i=0;i<pom.length;i+=2) {
-                if(pom[i] != null) {
-                    keywords.add(pom[i]);
-                }
-                    num = Integer.parseInt(pom[i + 1]);
-                    nums.add(num);
+            String[] line = name.split(System.lineSeparator());
+            String[] pom ;
+            int num ;
+            for(int i=0;i<line.length;i++) {
+                pom = line[i].split("\\s+");
+                    keywords.add(pom[0]);
+                    if(pom.length>1){
+                        num = Integer.parseInt(pom[1]);
+                        nums.add(num);
+                    } else{
+                        num = Integer.MIN_VALUE;
+                        nums.add(num);
+                    }
 
-                if(pom[i].equals("apply")){
-                    positionsOfApplies.add(i/2);
+                if(pom[0].equals("apply")){
+                    positionsOfApplies.add(i);
                 }
+
             }
         calculate();
     }
@@ -80,37 +86,5 @@ public class Kalkulacka {
                 System.out.println("Príklad " + i + ", má výsledok: " + result);
         }
     }
-
-    public int calculate(int result){
-        String keyword;  int num;
-        for(int i =0;i<keywords.size()-1;i++){
-            keyword = keywords.get(i);
-            num = nums.get(i);
-            if(num == Integer.MIN_VALUE)  {
-                System.out.println("Nesprávne číslo!!");
-                keyword="";
-            }
-
-            switch (keyword){
-                case "add":
-                    result +=num;
-                    break;
-                case "multiply":
-                    result*=num;
-                    break;
-                case "divide":
-                    result/=num;
-                    break;
-                case "minus":
-                    result-=num;
-                    break;
-                default:
-                    System.out.println("Nesprávny príkaz!!");
-                    result=Integer.MIN_VALUE;
-            }
-        }
-        return result;
-    }
-
 }
 
