@@ -25,8 +25,15 @@ public class TestingClass {
         myWriter.close();
 
         Kalkulacka kal = new Kalkulacka("C:\\Users\\Nadis\\IdeaProjects\\Dodik_2\\filename.txt");
-        kal.doCalculationFromFile();
+        kal.calculateFromFile();
         Assert.assertEquals(("Príklad 1, má výsledok: 5\r\n"),(outputStreamCaptor.toString()));
+    }
+    @Test
+    public void testStringSpravne(){
+
+        Kalkulacka kal = new Kalkulacka("add 1\r\nminus 3\r\napply 6");
+        kal.doCalculationFromString();
+        Assert.assertEquals(("Príklad 1, má výsledok: 4\r\n"),(outputStreamCaptor.toString()));
     }
     @Test
     public void testKalkulackaZlyPrikaz() throws IOException {
@@ -36,8 +43,15 @@ public class TestingClass {
         myWriter.close();
 
         Kalkulacka kal = new Kalkulacka("C:\\Users\\Nadis\\IdeaProjects\\Dodik_2\\filename.txt");
-        kal.doCalculationFromFile();
-        Assert.assertEquals(("Nesprávny príkaz!!\r\nPríklad 1, má výsledok: "+Integer.MIN_VALUE+"\r\n"),(outputStreamCaptor.toString()));
+        kal.calculateFromFile();
+
+        Assert.assertEquals(("Nesprávny príkaz!!\r\nPríklad 1, má výsledok: "+ Integer.MIN_VALUE+"\r\n"),(outputStreamCaptor.toString()));
+    }
+    @Test
+    public void testStringZlyPrikaz() {
+        Kalkulacka kal = new Kalkulacka("addd 1\r\nminus 3\r\napply 6");
+        kal.doCalculationFromString();
+        Assert.assertEquals(("Nesprávny príkaz!!\r\nPríklad 1, má výsledok: "+ Integer.MIN_VALUE+"\r\n"),(outputStreamCaptor.toString()));
     }
     @Test
     public void testKalkulackaChybajuceCislo() throws IOException {
@@ -47,7 +61,14 @@ public class TestingClass {
         myWriter.close();
 
         Kalkulacka kal = new Kalkulacka("C:\\Users\\Nadis\\IdeaProjects\\Dodik_2\\filename.txt");
-        kal.doCalculationFromFile();
+        kal.calculateFromFile();
+
+        Assert.assertEquals(("Nesprávne číslo!!\r\nNesprávny príkaz!!\r\nPríklad 1, má výsledok: "+Integer.MIN_VALUE+"\r\n"),(outputStreamCaptor.toString()));
+    }
+    @Test
+    public void testStringChybajuceCislo() {
+        Kalkulacka kal = new Kalkulacka("add \r\nminus 3\r\napply 6");
+        kal.doCalculationFromString();
         Assert.assertEquals(("Nesprávne číslo!!\r\nNesprávny príkaz!!\r\nPríklad 1, má výsledok: "+Integer.MIN_VALUE+"\r\n"),(outputStreamCaptor.toString()));
     }
     @Test
@@ -58,7 +79,7 @@ public class TestingClass {
         myWriter.close();
 
         Kalkulacka kal = new Kalkulacka("C:\\Users\\Nadis\\IdeaProjects\\Dodik_2\\filename.txt");
-        kal.doCalculationFromFile();
+        kal.calculateFromFile();
         Assert.assertEquals(("Nesprávne číslo!!\r\nNesprávny príkaz!!\r\nPríklad 1, má výsledok: "+Integer.MIN_VALUE+"\r\n"),(outputStreamCaptor.toString()));
     }
     @Test
@@ -69,7 +90,7 @@ public class TestingClass {
         myWriter.close();
 
         Kalkulacka kal = new Kalkulacka("C:\\Users\\Nadis\\IdeaProjects\\Dodik_2\\filename.txt");
-        kal.doCalculationFromFile();
+        kal.calculateFromFile();
         Assert.assertEquals((""),(outputStreamCaptor.toString()));
     }
 }

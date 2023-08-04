@@ -1,2 +1,6 @@
 add 2
 add 1
+apply 2
+minus 1
+multiply 2
+apply 3
