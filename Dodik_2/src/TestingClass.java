@@ -62,24 +62,30 @@ public class TestingClass {
         Kalkulacka kal = new Kalkulacka("C:\\Users\\Nadis\\IdeaProjects\\Dodik_2\\filename.txt");
         kal.calculateFromFile();
 
-        Assert.assertEquals(("Nesprávne číslo!!\r\nNesprávny príkaz!!\r\nPríklad 1, má výsledok: "+Integer.MIN_VALUE+"\r\n"),(outputStreamCaptor.toString()));
+        Assert.assertEquals(("Nesprávne číslo!!\r\nPríklad 1, má výsledok: "+Integer.MIN_VALUE+"\r\n"),(outputStreamCaptor.toString()));
     }
     @Test
     public void testStringChybajuceCislo() {
         Kalkulacka kal = new Kalkulacka("add \r\nminus 3\r\napply 6");
         kal.doCalculationFromString();
-        Assert.assertEquals(("Nesprávne číslo!!\r\nNesprávny príkaz!!\r\nPríklad 1, má výsledok: "+Integer.MIN_VALUE+"\r\n"),(outputStreamCaptor.toString()));
+        Assert.assertEquals(("Nesprávne číslo!!\r\nPríklad 1, má výsledok: "+Integer.MIN_VALUE+"\r\n"),(outputStreamCaptor.toString()));
     }
     @Test
     public void testKalkulackaChybajuciPrikaz() throws IOException {
 
         FileWriter myWriter = new FileWriter("filename.txt");
-        myWriter.write("minus 2 \n add \n apply 5");
+        myWriter.write("minus 2 \n 3 \n apply 5");
         myWriter.close();
 
         Kalkulacka kal = new Kalkulacka("C:\\Users\\Nadis\\IdeaProjects\\Dodik_2\\filename.txt");
         kal.calculateFromFile();
-        Assert.assertEquals(("Nesprávne číslo!!\r\nNesprávny príkaz!!\r\nPríklad 1, má výsledok: "+Integer.MIN_VALUE+"\r\n"),(outputStreamCaptor.toString()));
+        Assert.assertEquals(("Nesprávne číslo!!\r\nPríklad 1, má výsledok: "+Integer.MIN_VALUE+"\r\n"),(outputStreamCaptor.toString()));
+    }
+    @Test
+    public void testStringChybajuciPrikaz() {
+        Kalkulacka kal = new Kalkulacka("2 \r\nminus 3\r\napply 6");
+        kal.doCalculationFromString();
+        Assert.assertEquals(("Nesprávne číslo!!\r\nPríklad 1, má výsledok: "+Integer.MIN_VALUE+"\r\n"),(outputStreamCaptor.toString()));
     }
     @Test
     public void testKalkulackaChybajuciApply() throws IOException {
@@ -90,6 +96,12 @@ public class TestingClass {
 
         Kalkulacka kal = new Kalkulacka("C:\\Users\\Nadis\\IdeaProjects\\Dodik_2\\filename.txt");
         kal.calculateFromFile();
+        Assert.assertEquals((""),(outputStreamCaptor.toString()));
+    }
+    @Test
+    public void testStringChybajuciApply() {
+        Kalkulacka kal = new Kalkulacka("add 2 \r\nminus 3");
+        kal.doCalculationFromString();
         Assert.assertEquals((""),(outputStreamCaptor.toString()));
     }
 }

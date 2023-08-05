@@ -62,7 +62,13 @@ public class Kalkulacka {
                         num = nums.get(j);
                         if (num == Integer.MIN_VALUE ) {
                             System.out.println("Nesprávne číslo!!");
-                            keyword = "";
+                            result = Integer.MIN_VALUE;
+                            break;
+                        }
+                        if(!checkKeyword(keyword)){
+                            System.out.println("Nesprávny príkaz!!");
+                            result = Integer.MIN_VALUE;
+                            break;
                         }
                         switch (keyword) {
                             case "add":
@@ -85,6 +91,9 @@ public class Kalkulacka {
                 }
                 System.out.println("Príklad " + i + ", má výsledok: " + result);
         }
+    }
+    public boolean checkKeyword(String word){
+       return word.equals("add") || word.equals("divide") || word.equals("multiply") || word.equals("minus");
     }
 }
 
