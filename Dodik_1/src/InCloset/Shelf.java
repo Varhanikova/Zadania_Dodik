@@ -18,7 +18,7 @@ public class Shelf extends inCloset {
     public String toString(){
         String str = getId() + "\n";
         for (Clothes clothe : this.getClothes()) {
-            str += clothe.toString() + "\n";
+            str += "\t" + clothe.toString() + "\n";
         }
             str+="\n";
         return str;

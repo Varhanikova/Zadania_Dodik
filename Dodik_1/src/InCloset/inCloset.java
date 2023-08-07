@@ -3,6 +3,7 @@ package InCloset;
 import Clothes.Clothes;
 import Clothes.Types;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class inCloset  {
     private Storage id;
@@ -25,7 +26,15 @@ public class inCloset  {
         }
         return str;
     }
-    //delete method where deleted clothes will be the one on the top - type of clothes will be parameter (maybe more than one?)
+    public String allClothes(){
+//        return clothes.stream()
+//                .reduce(id + " ",(summary,element)->summary+"\n \t" + element,String::concat);
+        return id + "\n \t" + clothes.stream()
+                .map(Clothes::toString)
+                .collect(Collectors.joining("\n \t"));
+
+
+    }
 
     public void deleteClothes(Types... values){
         for(Types typ: values){

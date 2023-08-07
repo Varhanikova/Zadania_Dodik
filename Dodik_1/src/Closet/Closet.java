@@ -4,6 +4,9 @@ import InCloset.Storage;
 import InCloset.inCloset;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.joining;
 
 public class Closet {
     private static Closet single_instance=null;
@@ -41,5 +44,16 @@ public class Closet {
             str += inCloset.toString();
         }
         return str;
+    }
+    public String allFromCloset()
+    {
+//        return inClosets.stream()
+//                .reduce("", (subtotal, element) -> subtotal + "\n" + element.allClothes(), String::concat);
+
+//         inClosets.stream()
+//                .map(str->str.allClothes() + "\n").forEach(System.out::println);
+        return inClosets.stream()
+                .map(inCloset::allClothes)
+                .collect(joining("\n"));
     }
 }

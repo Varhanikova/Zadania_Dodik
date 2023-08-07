@@ -18,7 +18,7 @@ public class Drawer extends inCloset {
     public String toString(){
         String str = getId() + "\n";
         for (Clothes clothe : getClothes()) {
-            str += clothe.toString() + "\n";
+            str += "\t" + clothe.toString() + "\n";
         }
         str+="\n";
         return str;

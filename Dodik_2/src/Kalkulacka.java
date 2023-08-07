@@ -32,20 +32,20 @@ public class Kalkulacka {
     }
     public void doCalculationFromString() {
             String[] line = name.split(System.lineSeparator());
-            String[] pom ;
+            String[] words ;
             int num ;
             for(int i=0;i<line.length;i++) {
-                pom = line[i].split("\\s+");
-                    keywords.add(pom[0]);
-                    if(pom.length>1){
-                        num = Integer.parseInt(pom[1]);
+                words = line[i].split("\\s+");
+                    keywords.add(words[0]);
+                    if(words.length>1){
+                        num = Integer.parseInt(words[1]);
                         nums.add(num);
                     } else{
                         num = Integer.MIN_VALUE;
                         nums.add(num);
                     }
 
-                if(pom[0].equals("apply")){
+                if(words[0].equals("apply")){
                     positionsOfApplies.add(i);
                 }
 
@@ -53,7 +53,7 @@ public class Kalkulacka {
         calculate();
     }
     public void calculate(){
-        String keyword;  int num; int result=0;
+        String keyword;  int num; int result;
         for(int i=1;i<positionsOfApplies.size();i++){
                 result=nums.get(positionsOfApplies.get(i));
                 for (int j = positionsOfApplies.get(i - 1); j < positionsOfApplies.get(i); j++) {

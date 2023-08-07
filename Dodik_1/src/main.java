@@ -16,6 +16,6 @@ public class main {
         closet.addinClosets(dr1);
 
         ClothesFactory.fillClosetRandom(closet,5);
-        System.out.println(closet.toString());
+        System.out.println(closet.allFromCloset());
     }
 }

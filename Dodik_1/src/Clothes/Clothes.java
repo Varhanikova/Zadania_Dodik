@@ -10,7 +10,7 @@ public class Clothes {
     }
 
     public String toString() {
-        return "id: " + id;
+        return nazov;
     }
     public Types getId(){
         return id;

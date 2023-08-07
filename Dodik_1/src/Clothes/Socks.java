@@ -7,8 +7,8 @@ public class Socks extends Clothes {
         super(Types.SOCKS, p_nazov);
 
     }
-    @Override
-    public String toString(){
-        return  getId() + " " + getNazov();
-    }
+//    @Override
+//    public String toString(){
+//        return  getId() + " " + getNazov();
+//    }
 }
