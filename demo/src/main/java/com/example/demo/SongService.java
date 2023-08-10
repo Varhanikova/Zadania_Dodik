@@ -48,9 +48,9 @@ public class SongService {
     @GetMapping("pesnicky/autor/{autor}")
     public String getMetallicaSongs(@PathVariable String autor){
         String pom="";
-        for(Song str: songs) {
-            if(str.getAutor().equalsIgnoreCase(autor)){
-                pom+="<p>" +  str + "</p>";
+        for(Song sng: songs) {
+            if(sng.getAutor().equalsIgnoreCase(autor)){
+                pom+="<p>" +  sng + "</p>";
             }
         }
         return pom;
@@ -69,15 +69,14 @@ public class SongService {
     @GetMapping("pesnicky/random")
     public String randomSong(){
         Random rand = new Random();
-        int rnd = rand.nextInt(10);
-        int i=0;
+        int rnd = rand.nextInt(songs.size());
         return songs.get(rnd).toString();
     }
     @GetMapping("pesnicky/all")
     public String getAll(){
         String pom ="";
-        for(Song str: songs){
-            pom+="<p>" +  str.toString() + "</p>";
+        for(Song sng: songs){
+            pom+="<p>" +  sng.toString() + "</p>";
         }
         return pom;
     }

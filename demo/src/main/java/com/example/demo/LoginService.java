@@ -1,6 +1,4 @@
 package com.example.demo;
-
-import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +18,7 @@ public class LoginService {
     public String login(@PathVariable String username, @PathVariable String password){
         Login log = new Login(username,password);
         for(Login login: logins){
-            if(login.getUsername().equalsIgnoreCase(username) && login.getPassword().equalsIgnoreCase(password)){
+            if(login.getUsername().equals(username) && login.getPassword().equals(password)){
                 actualUser=login;
                 return "Logged as " + username;
             }
