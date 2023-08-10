@@ -19,4 +19,17 @@ public class Login {
     public void addPlayList(String name){
         playlists.add(new Playlist(name));
     }
+    public ArrayList<Playlist> getPlaylists(){
+        return playlists;
+    }
+    public String vypisHudby(){
+        String pom="";
+        for(Playlist pl: playlists){
+            for(Song sng: pl.getSongs()){
+                pom+="<p> " + sng.getAutor() + ": " + sng.getName() + " </p>";
+            }
+        }
+        return pom;
+    }
+
 }

@@ -1,23 +1,27 @@
 package com.example.demo;
 
 import lombok.extern.java.Log;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-
+@RestController
 public class LoginService {
     private ArrayList<Login> logins =  new ArrayList<>();
     private Login actualUser=null;
+    @Autowired
+    private SongService songService;
 
-    @GetMapping("prihlasenie/{username}/{password}")
+    public LoginService(){
+        logins.add(new Login("user","pass"));
+    }
+
+    @PostMapping("prihlasenie/{username}/{password}")
     public String login(@PathVariable String username, @PathVariable String password){
         Login log = new Login(username,password);
         for(Login login: logins){
             if(login.getUsername().equalsIgnoreCase(username) && login.getPassword().equalsIgnoreCase(password)){
-                actualUser=log;
+                actualUser=login;
                 return "Logged as " + username;
             }
         }
@@ -38,7 +42,35 @@ public class LoginService {
     }
     @PostMapping("prihlasenie/pridajPlaylist/{name}")
     public String addPlayList(@PathVariable String name){
-        actualUser.addPlayList(name);
-        return "Playlist " + name + " added to user " + actualUser;
+        if (actualUser!=null) {
+            actualUser.addPlayList(name);
+            return "Playlist " + name + " added to user " + actualUser.getUsername();
+        }
+        return "No user!";
     }
+    @PostMapping("prihlasenie/pridajSong/{Playlist}/{name}")
+    public String addSongToPlaylist(@PathVariable String Playlist, @PathVariable String name){
+        if(actualUser!=null){
+            for(Playlist pl: actualUser.getPlaylists()){
+                if(pl.getNazov().equalsIgnoreCase(Playlist)){
+                    for(Song sng: songService.getSongs()){
+                        if(sng.getName().equalsIgnoreCase(name)){
+                            pl.addSong(sng);
+                            return "Song " + name + " added to playlist " + pl.getNazov();
+                        }
+                    }
+                }
+            }
+
+        }
+        return "No user!";
+    }
+    @GetMapping("prihlasenie/allSongs")
+    public String allSongs(){
+        if(actualUser!=null){
+            return actualUser.vypisHudby();
+        }
+        return "No user!";
+    }
+
 }

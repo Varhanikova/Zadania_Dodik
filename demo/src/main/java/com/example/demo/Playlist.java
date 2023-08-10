@@ -11,5 +11,9 @@ public class Playlist {
     public void addSong(Song sng){
         songs.add(sng);
     }
+    public String getNazov(){return nazov;}
+    public ArrayList<Song> getSongs(){
+        return songs;
+    }
 
 }
