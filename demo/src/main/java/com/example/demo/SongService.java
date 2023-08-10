@@ -3,7 +3,6 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 @RestController
@@ -46,7 +45,7 @@ public class SongService {
     }
 
     @GetMapping("pesnicky/autor/{autor}")
-    public String getMetallicaSongs(@PathVariable String autor){
+    public String getSongByAutor(@PathVariable String autor){
         String pom="";
         for(Song sng: songs) {
             if(sng.getAutor().equalsIgnoreCase(autor)){
@@ -60,10 +59,21 @@ public class SongService {
             songs.add(new Song(autor, nazov));
             return "Song " +autor + ": " + nazov + " pridany!";
     }
-    @PostMapping(value = "pesnicky/pridaj", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping("pesnicky/pridaj")
     public String addNewSong(@RequestBody Song song) {
+        if(!existuje(song.getName(),song.getAutor())){
             songs.add(song);
             return "Song " + song.getAutor() + ": " + song.getName() + " pridany!";
+        }
+           return "Song already exists!";
+    }
+    public boolean existuje(String nazov, String autor){
+        for(Song sng: songs){
+            if(sng.getName().equalsIgnoreCase(nazov) && sng.getAutor().equalsIgnoreCase(autor)){
+                return true;
+            }
+        }
+        return false;
     }
 
     @GetMapping("pesnicky/random")

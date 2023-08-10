@@ -16,7 +16,6 @@ public class LoginService {
 
     @PostMapping("prihlasenie/{username}/{password}")
     public String login(@PathVariable String username, @PathVariable String password){
-        Login log = new Login(username,password);
         for(Login login: logins){
             if(login.getUsername().equals(username) && login.getPassword().equals(password)){
                 actualUser=login;
