@@ -48,22 +48,37 @@ public class LoginService {
         }
         return "No user!";
     }
-    @PostMapping("prihlasenie/pridajSong/{Playlist}/{name}")
-    public String addSongToPlaylist(@PathVariable String Playlist, @PathVariable String name){
-        if(actualUser!=null){
-            for(Playlist pl: actualUser.getPlaylists()){
-                if(pl.getNazov().equalsIgnoreCase(Playlist)){
-                    for(Song sng: songService.getSongs()){
-                        if(sng.getName().equalsIgnoreCase(name)){
-                            pl.addSong(sng);
-                            return "Song " + name + " added to playlist " + pl.getNazov();
-                        }
-                    }
-                }
-            }
-
+    @PostMapping("prihlasenie/pridajSong/{playlist}/{name}")
+    public String addSongToPlaylist(@PathVariable String playlist, @PathVariable String name){
+        if(actualUser==null) {
+            return "No user!";
         }
-        return "No user!";
+        Playlist pl = findPlaylist(playlist);
+        if(pl==null){
+            return "No playlist " + playlist+ " found!";
+        }
+        Song sng = findSong(name);
+        if(sng==null){
+            return "no song " + name + " found!";
+        }
+        return "Song " + name + " added to playlist " + pl.getNazov();
+    }
+    public Playlist findPlaylist(String name){
+        for(Playlist pl: actualUser.getPlaylists()){
+            if(pl.getNazov().equalsIgnoreCase(name)){
+                return pl;
+            }
+        }
+        return null;
+    }
+
+    public Song findSong(String name){
+        for(Song sng: songService.getSongs()){
+            if(sng.getName().equalsIgnoreCase(name)){
+                return sng;
+            }
+        }
+        return null;
     }
     @GetMapping("prihlasenie/allSongs")
     public String allSongs(){
