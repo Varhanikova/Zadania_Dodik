@@ -57,21 +57,13 @@ public class SongService {
     }
     @PostMapping("pesnicky/pridaj/{autor}/{nazov}")
     public String addNewSong(@PathVariable String autor,@PathVariable String nazov){
-       // if(logged) {
             songs.add(new Song(autor, nazov));
             return "Song " +autor + ": " + nazov + " pridany!";
-//        } else{
-//            return "Can not add song!";
-//        }
     }
     @PostMapping(value = "pesnicky/pridaj", produces = MediaType.APPLICATION_JSON_VALUE)
     public String addNewSong(@RequestBody Song song) {
-       // if(logged){
             songs.add(song);
             return "Song " + song.getAutor() + ": " + song.getName() + " pridany!";
-//        } else {
-//            return "Can not add song!";
-//        }
     }
 
     @GetMapping("pesnicky/random")
