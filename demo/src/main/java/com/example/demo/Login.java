@@ -36,8 +36,9 @@ public class Login {
     public String vypisHudby(){
         String pom="";
         for(Playlist pl: playlists){
+            pom+="<p> " + pl.getNazov() + ":  </p>";
             for(Song sng: pl.getSongs()){
-                pom+="<p> " + sng.getAutor() + ": " + sng.getName() + " </p>";
+                pom+="  <p> " + sng.getAutor() + ": " + sng.getName() + " </p>";
             }
         }
         return pom;

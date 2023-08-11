@@ -71,6 +71,7 @@ public class LoginService {
         if(sng==null){
             return "no song " + name + " found!";
         }
+        pl.addSong(sng);
         return "Song " + name + " added to playlist " + pl.getNazov();
     }
     public Playlist findPlaylist(String name){
