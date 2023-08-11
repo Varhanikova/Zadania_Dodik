@@ -11,7 +11,7 @@ public class LoginService {
     private SongService songService;
 
     public LoginService(){
-        logins.add(new Login("user","pass"));
+        logins.add(new Login("user","pass",false));
     }
 
     @PostMapping("prihlasenie/{username}/{password}")
@@ -25,9 +25,20 @@ public class LoginService {
         return "Wrong credentials!";
     }
     @PostMapping("prihlasenie/pridaj")
-    public String login(@RequestBody Login login){
+    public String addLogin(@RequestBody Login login){
         logins.add(login);
         return "Login with username " +login.getUsername() + " added!";
+    }
+    @PostMapping("prihlasenie/pridaj/{username}/{password}/{premium}")
+    public String addLogin(@PathVariable String username, @PathVariable String password, @PathVariable(required = false) boolean premium){
+//        if(premium==null){
+//            premium= false;
+//        }
+        logins.add(new Login(username,password,premium));
+        if(premium){
+            return "Login with username " +username + " added as premium user!";
+        }
+        return "Login with username " +username + " added!";
     }
     @GetMapping("prihlasenia")
     public String getLogins(){
@@ -39,11 +50,13 @@ public class LoginService {
     }
     @PostMapping("prihlasenie/pridajPlaylist/{name}")
     public String addPlayList(@PathVariable String name){
-        if (actualUser!=null) {
-            actualUser.addPlayList(name);
-            return "Playlist " + name + " added to user " + actualUser.getUsername();
+        if (actualUser==null) {
+            return "No user!";
         }
-        return "No user!";
+        if(!actualUser.addPlayList(name)){
+            return "No other playlist is allowed! " + actualUser.getUsername()+" switch to premium!";
+        }
+        return "Playlist " + name + " added to user " + actualUser.getUsername();
     }
     @PostMapping("prihlasenie/pridajSong/{playlist}/{name}")
     public String addSongToPlaylist(@PathVariable String playlist, @PathVariable String name){
