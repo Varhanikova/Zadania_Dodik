@@ -15,5 +15,12 @@ public class Playlist {
     public ArrayList<Song> getSongs(){
         return songs;
     }
+    public String playSongs(){
+        String pom="";
+        for(Song sng: songs){
+            pom+="<p> " + sng.getAutor()+": "+ sng.getName()+" </p>";
+        }
+        return pom;
+    }
 
 }

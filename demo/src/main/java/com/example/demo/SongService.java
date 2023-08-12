@@ -9,10 +9,6 @@ import java.util.*;
 public class SongService {
     private ArrayList<Song> songs =  new ArrayList<>();
 
-    @GetMapping("/")
-    public String getSong(){
-        return "This is my song";
-    }
     public ArrayList<Song> getSongs(){return songs;}
     public SongService(){
         fillListWithRandomSongs();
@@ -90,4 +86,5 @@ public class SongService {
         }
         return pom;
     }
+
 }

@@ -6,12 +6,17 @@ public class Login {
     private String username;
     private String password;
     private boolean premium;
+    private double fee;
     private ArrayList<Playlist> playlists= new ArrayList<>();
     public Login(String user, String pass, boolean prem) {
         username = user;
         password= pass;
         premium = prem;
-
+        if(prem){
+            fee=5;
+        }else{
+            fee=0;
+        }
     }
     public String getUsername(){
         return username;
@@ -19,6 +24,13 @@ public class Login {
     public void setPremium(){
         premium=true;
     }
+    public void addFee(double p_fee){
+        fee+=p_fee;
+    }
+    public double getFee() {
+        return fee;
+    }
+
     public String getPassword(){
         return password;
     }
@@ -37,9 +49,7 @@ public class Login {
         String pom="";
         for(Playlist pl: playlists){
             pom+="<p> " + pl.getNazov() + ":  </p>";
-            for(Song sng: pl.getSongs()){
-                pom+="  <p> " + sng.getAutor() + ": " + sng.getName() + " </p>";
-            }
+            pom+=pl.playSongs();
         }
         return pom;
     }
@@ -47,4 +57,13 @@ public class Login {
         return premium;
     }
 
+    public ArrayList<Song> getAllSavedSongs(){
+        ArrayList<Song> pom = new ArrayList<>();
+        for(Playlist pl: playlists){
+            for(Song sng: pl.getSongs()){
+                pom.add(sng);
+            }
+        }
+        return pom;
+    }
 }

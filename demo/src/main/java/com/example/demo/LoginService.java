@@ -3,6 +3,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
+
 @RestController
 public class LoginService {
     private ArrayList<Login> logins =  new ArrayList<>();
@@ -10,8 +12,24 @@ public class LoginService {
     @Autowired
     private SongService songService;
 
+
     public LoginService(){
-        logins.add(new Login("user","pass",false));
+       logins.add(new Login("user","pass",false));
+    }
+    public Login getActualUser(){
+        return actualUser;
+    }
+    public void setActualUser(Login user){
+        actualUser=user;
+    }
+    @GetMapping("test")
+    public void Test(){
+        actualUser = logins.get(0);
+        actualUser.addPlayList("moj");
+        Playlist pl = findPlaylist("moj");
+        for(Song sng :songService.getSongs()){
+            pl.addSong(sng);
+        }
     }
 
     @PostMapping("prihlasenie/{username}/{password}")
@@ -31,22 +49,24 @@ public class LoginService {
     }
     @PostMapping("prihlasenie/pridaj/{username}/{password}/{premium}")
     public String addLogin(@PathVariable String username, @PathVariable String password, @PathVariable(required = false) boolean premium){
-//        if(premium==null){
-//            premium= false;
-//        }
-        logins.add(new Login(username,password,premium));
+        Login l = new Login(username,password,premium);
+        logins.add(l);
         if(premium){
+            l.addFee(5);
             return "Login with username " +username + " added as premium user!";
         }
         return "Login with username " +username + " added!";
     }
     @GetMapping("prihlasenia")
-    public String getLogins(){
+    public String vypisPrihlasenia(){
         String pom="";
         for(Login log: logins){
             pom+="<p> "+ log.getUsername() + " </p>";
         }
         return pom;
+    }
+    public ArrayList<Login> getLogins(){
+        return logins;
     }
     @PostMapping("prihlasenie/pridajPlaylist/{name}")
     public String addPlayList(@PathVariable String name){
@@ -98,5 +118,12 @@ public class LoginService {
         }
         return "No user!";
     }
-
+    public ArrayList<Song> getSongsByActualUserPlaylist(String name){
+        Playlist pl = findPlaylist(name);
+        if(pl==null){
+            return null;
+        }
+        Collections.shuffle(pl.getSongs());
+        return pl.getSongs();
+    }
 }
