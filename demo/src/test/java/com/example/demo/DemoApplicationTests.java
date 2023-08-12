@@ -12,8 +12,10 @@ class DemoApplicationTests {
 		SongService songService= new SongService();
 		LoginService loginService = new LoginService();
 		MoneyService moneyService = new MoneyService();
+		PlaylistService playlistService= new PlaylistService();
 		moneyService.setLoginService(loginService);
 		moneyService.setSongService(songService);
+		playlistService.setLoginService(loginService);
 
 		//create logins
 		loginService.addLogin(new Login("user1","pass",true));
@@ -24,11 +26,11 @@ class DemoApplicationTests {
 		for(Login lg :loginService.getLogins()) {
 			loginService.setActualUser(lg);
 			lg.addPlayList("moj");
-			Playlist pl = loginService.findPlaylist("moj");
+			Playlist pl = playlistService.findPlaylist("moj");
 			for (Song sng : songService.getSongs()) {
 				pl.addSong(sng);
 			}
-			moneyService.playSongs("moj");
+			playlistService.playSongs("moj");
 		}
 		assert (moneyService.sumOfMoney()>10);
 

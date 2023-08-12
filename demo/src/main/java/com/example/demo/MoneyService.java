@@ -26,24 +26,7 @@ public class MoneyService {
     }
    public void setSongService(SongService sg){songService= sg;}
     public void setLoginService(LoginService lg){loginService=lg;}
-    @GetMapping("pesnicky/playRandom/{playlist}")
-    public String playSongs(@PathVariable String playlist){
-        Random rnd = new Random();
-        String pom="";
-        ArrayList<Song> songs = loginService.getSongsByActualUserPlaylist(playlist);
-        if(songs==null){
-            return "No playlist found!";
-        }
-            for (Song sng : songs) {
-                if (rnd.nextDouble() < 0.1 && !loginService.getActualUser().isPremium()) {
-                    sng.addFee(0.1);
-                    pom+="<p>" +  sng.toString() + " was played with ad </p>";
-                } else {
-                    pom+="<p>" +  sng.toString() + " was played without ad </p>";
-                }
-            }
-        return pom;
-    }
+
     @GetMapping("money")
     public String listSongsWithAd(){
         String pom="";
