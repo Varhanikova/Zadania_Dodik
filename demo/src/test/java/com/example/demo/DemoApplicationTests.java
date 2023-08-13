@@ -1,7 +1,6 @@
 package com.example.demo;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
@@ -11,16 +10,24 @@ class DemoApplicationTests {
 	void contextLoads() {
 		SongService songService= new SongService();
 		LoginService loginService = new LoginService();
-		MoneyService moneyService = new MoneyService();
+		AdService adService = new AdService();
 		PlaylistService playlistService= new PlaylistService();
-		moneyService.setLoginService(loginService);
-		moneyService.setSongService(songService);
+
+		adService.setLoginService(loginService);
+		adService.setSongService(songService);
 		playlistService.setLoginService(loginService);
+		playlistService.setAdService(adService);
 
 		//create logins
 		loginService.addLogin(new Login("user1","pass",true));
 		loginService.addLogin(new Login("user2","pass",false));
 		loginService.addLogin(new Login("user3","pass",true));
+
+		//create ads
+		Ad ad1 = new Ad("Coca Cola", 0.01, 0.4);
+		Ad ad2 = new Ad("Lotus", 0.02, 0.6);
+		adService.addAd(ad1);
+		adService.addAd(ad2);
 
 		//add songs to every user and play them
 		for(Login lg :loginService.getLogins()) {
@@ -32,7 +39,8 @@ class DemoApplicationTests {
 			}
 			playlistService.playSongs("moj");
 		}
-		assert (moneyService.sumOfMoney()>10);
+		System.out.println(adService.sumOfMoney());
+		assert (adService.sumOfMoney()>10);
 
 	}
 

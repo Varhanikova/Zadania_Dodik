@@ -16,10 +16,17 @@ public class PlaylistService {
     private LoginService loginService;
     @Autowired
     private SongService songService;
+    @Autowired
+    private AdService adService;
 
     public PlaylistService(){
 
     }
+
+    public void setAdService(AdService adService) {
+        this.adService = adService;
+    }
+
     public void setLoginService(LoginService ls){
         loginService = ls;
     }
@@ -73,7 +80,7 @@ public class PlaylistService {
         }
         return "No user!";
     }
-    public ArrayList<Song> getSongsByActualUserPlaylist(String name){ //Playlist
+    public ArrayList<Song> getSongsByActualUserPlaylist(String name){
         Playlist pl = findPlaylist(name);
         if(pl==null){
             return null;
@@ -81,7 +88,7 @@ public class PlaylistService {
         Collections.shuffle(pl.getSongs());
         return pl.getSongs();
     }
-    @GetMapping("PS/playRandom/{playlist}") // Playlist
+    @GetMapping("PS/playRandom/{playlist}")
     public String playSongs(@PathVariable String playlist){
         Random rnd = new Random();
         String pom="";
@@ -89,10 +96,24 @@ public class PlaylistService {
         if(songs==null){
             return "No playlist found!";
         }
+        ArrayList<Ad> ads = adService.getAds();
+        double prob=0; double prev=0;
         for (Song sng : songs) {
             if (rnd.nextDouble() < 0.1 && !loginService.getActualUser().isPremium()) {
-                sng.addFee(0.1);
-                pom+="<p>" +  sng.toString() + " was played with ad </p>";
+                prob = rnd.nextDouble();
+                for (int i =0;i<ads.size();i++) {
+                    if(i==0) {
+                        prev=0;
+                    } else{
+                        prev = ads.get(i-1).getProbability();
+                    }
+                    if (prev<=prob && (prev+ ads.get(i).getProbability()) >= prob) {
+                        sng.addFee(ads.get(i).getProfit());
+                        ads.get(i).setUsed();
+                        pom += "<p>" + sng.toString() + " was played with ad " + ads.get(i).getSponzor() + " </p>";
+                        break;
+                    }
+                }
             } else {
                 pom+="<p>" +  sng.toString() + " was played without ad </p>";
             }
