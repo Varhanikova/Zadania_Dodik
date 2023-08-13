@@ -38,11 +38,11 @@ class DemoApplicationTests {
 			playlistService.fillPlaylistWithAll("moj");
 			playlistService.playSongsTest("moj");
 		}
-		System.out.println(adService.sumOfMoney());
-		assert (adService.sumOfMoney()>13.29 && adService.sumOfMoney() < 13.31);
+		System.out.println(adService.sumOfProfit());
+		assert (adService.sumOfProfit()>13.29 && adService.sumOfProfit() < 13.31);
 		//<p> Ad " + ad.getSponzor() + " has profit: " + ad.getProfit()*ad.getUsed() + " </p>
 
-		String ads = adService.listAds();
+		String ads = adService.listAdsWithProfit();
 		assert(ads.equals("<p> Ad Coca Cola has profit: 1.0 </p><p> Ad Lotus has profit: 2.0 </p><p> Ad Microsoft has profit: 0.1 </p><p> Ad Freia has profit: 0.2 </p>"));
 	}
 

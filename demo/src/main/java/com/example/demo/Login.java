@@ -30,7 +30,6 @@ public class Login {
     public double getFee() {
         return fee;
     }
-
     public String getPassword(){
         return password;
     }
@@ -60,9 +59,7 @@ public class Login {
     public ArrayList<Song> getAllSavedSongs(){
         ArrayList<Song> pom = new ArrayList<>();
         for(Playlist pl: playlists){
-            for(Song sng: pl.getSongs()){
-                pom.add(sng);
-            }
+            pom.addAll(pl.getSongs());
         }
         return pom;
     }

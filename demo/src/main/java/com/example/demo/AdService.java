@@ -21,7 +21,6 @@ public class AdService {
         return ads;
     }
 
-
    public void setSongService(SongService sg){songService= sg;}
     public void setLoginService(LoginService lg){loginService=lg;}
     public void addAd(Ad p_ad){
@@ -45,7 +44,7 @@ public class AdService {
         }
         return pom;
     }
-    public double sumOfMoney(){
+    public double sumOfProfit(){
         double sum=0;
         for(Login lg: loginService.getLogins()){
             sum+=lg.getFee();
@@ -56,7 +55,7 @@ public class AdService {
         return sum;
     }
     @GetMapping("Ad/profit")
-    public String listAds(){
+    public String listAdsWithProfit(){
         String pom="";
         for(Ad ad: ads){
             pom+="<p> Ad " + ad.getSponzor() + " has profit: " + ad.getProfit()*ad.getUsed() + " </p>";
