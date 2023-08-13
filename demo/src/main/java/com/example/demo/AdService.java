@@ -14,8 +14,8 @@ public class AdService {
     private ArrayList<Ad> ads = new ArrayList<>();
 
     public AdService(){
-        ads.add(new Ad("Coca Cola",0.1,0.4));
-        ads.add(new Ad("Lotus",0.2,0.6));
+        ads.add(new Ad("Coca Cola",0.1,0.35));
+        ads.add(new Ad("Lotus",0.2,0.55));
     }
     public ArrayList<Ad> getAds() {
         return ads;
@@ -32,10 +32,7 @@ public class AdService {
         for(Ad ad: ads){
             sum+=ad.getProbability();
         }
-        if(sum==1){
-            return true;
-        }
-        return false;
+        return sum == 1;
     }
     @GetMapping("Ad/songsAd")
     public String listSongsWithAd(){

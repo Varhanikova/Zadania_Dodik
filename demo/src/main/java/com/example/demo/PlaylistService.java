@@ -53,6 +53,11 @@ public class PlaylistService {
         if(sng==null){
             return "no song " + name + " found!";
         }
+        for(Song sn: pl.getSongs()){
+            if(sn.getAutor().equalsIgnoreCase(sng.getAutor() )&& sn.getName().equalsIgnoreCase(sng.getName())){
+                return "Song is alredy in playlist!";
+            }
+        }
         pl.addSong(sng);
         return "Song " + name + " added to playlist " + pl.getNazov();
     }
@@ -71,6 +76,14 @@ public class PlaylistService {
             }
         }
         return null;
+    }
+    @GetMapping("PS/fillPlaylist/{playlist}")
+    public String fillPlaylistWithAll(@PathVariable String playlist){
+        Playlist pl = findPlaylist(playlist);
+        for(Song sng: songService.getSongs()){
+            pl.addSong(sng);
+        }
+        return "<p> All songs added to playlist " + pl.getNazov() + " </p>";
     }
 
     @GetMapping("prihlasenie/allSongs")
@@ -119,5 +132,29 @@ public class PlaylistService {
             }
         }
         return pom;
+    }
+    public String playSongsTest( String playlist){
+        Random rnd = new Random();
+        String pom="";
+        ArrayList<Song> songs = getSongsByActualUserPlaylist(playlist);
+        if(songs==null){
+            return "No playlist found!";
+        }
+        ArrayList<Ad> ads = adService.getAds();
+        if(!loginService.getActualUser().isPremium()) {
+            int i = 0;
+            for (Song sng : songs) {
+                sng.addFee(ads.get(i % 4).getProfit());
+                ads.get(i % 4).setUsed();
+                pom += "<p>" + sng.toString() + " was played with ad " + ads.get(i % 4).getSponzor() + " </p>";
+
+                i++;
+            }
+        }
+        return pom;
+    }
+
+    public void setSongsService(SongService pSS) {
+        songService = pSS;
     }
 }
