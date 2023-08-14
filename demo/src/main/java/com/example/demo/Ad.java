@@ -11,6 +11,12 @@ public class Ad {
         profit = p_gee;
         probability = prob;
     }
+    public Ad(String sp, double p_gee, double prob,int pused){
+        sponzor = sp;
+        profit = p_gee;
+        probability = prob;
+        used = pused;
+    }
     public String getSponzor(){return sponzor;}
 
     public double getProfit() {

@@ -8,7 +8,7 @@ public class Login {
     private String password;
     private String premium;
     private double fee;
-    private ArrayList<Playlist> playlists= new ArrayList<>();
+    //private ArrayList<Playlist> playlists= new ArrayList<>();
 
 
     public Login(String user, String pass, String prem) {
@@ -52,11 +52,11 @@ public class Login {
         return premium;
     }
 
-    public ArrayList<Song> getAllSavedSongs(){
-        ArrayList<Song> pom = new ArrayList<>();
-        for(Playlist pl: playlists){
-            pom.addAll(pl.getSongs());
-        }
-        return pom;
-    }
+//    public ArrayList<Song> getAllSavedSongs(){
+//        ArrayList<Song> pom = new ArrayList<>();
+//        for(Playlist pl: playlists){
+//            pom.addAll(pl.getSongs());
+//        }
+//        return pom;
+//    }
 }

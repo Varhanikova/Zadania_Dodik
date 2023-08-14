@@ -17,7 +17,8 @@ public class jdbcAdRepository {
         String sponzor = rs.getString("sponzor");
         float profit = rs.getFloat("profit");
         double probability = rs.getDouble("probability");
-        return new Ad(sponzor,profit,probability);
+        int used = rs.getInt("used");
+        return new Ad(sponzor,profit,probability,used);
     }
     public List<Ad> getAds(){
         String sql = "select * from Ad";
@@ -31,9 +32,9 @@ public class jdbcAdRepository {
         return rs.getInt("used");
     }
     public boolean addUsed(String id){
-        String sql = "select used from Ad where id =?";
+        String sql = "select used from Ad where sponzor =?";
         int used =jdbcOperations.query(sql,this::mapUsed,id).get(0);
-        sql = "update Ad set used = ? where id=?";
+        sql = "update Ad set used = ? where sponzor=?";
         return jdbcOperations.update(sql,used+1,id)>0;
     }
 

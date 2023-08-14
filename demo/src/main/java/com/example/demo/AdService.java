@@ -43,11 +43,9 @@ public class AdService {
     @GetMapping("Ad/songsAd")
     public String listSongsWithAd(){
         String pom="";
-        for(Playlist pl: jdbcPlaylistRepository.getPlaylistPodlaUsera(loginService.getActualUser().getUsername())){
-            for(PlaylistSong sng: jdbcPlaylistSongRepository.getSongsByPlaylist(pl.getId()) ){
-                if(sng.getSong().getFee()>0.0){
-                    pom+= "<p> " + sng.getSong().songAd() + " </p>";
-                }
+        for(Song sng: jdbcSongRepository.getSongs()){
+            if(sng.getFee()>0.0){
+                pom+= "<p> " + sng.songAd() + " </p>";
             }
         }
         return pom;

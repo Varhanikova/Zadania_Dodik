@@ -17,7 +17,8 @@ public class jdbcSongRepository {
          int id = rs.getInt("id");
          String name = rs.getString("name");
          String autor = rs.getString("autor");
-         return new Song(id,autor,name);
+         float fee = rs.getFloat("fee");
+         return new Song(id,autor,name,fee);
      }
      private int mapInt(ResultSet rs, int row) throws SQLException {
          return rs.getInt("pocet");

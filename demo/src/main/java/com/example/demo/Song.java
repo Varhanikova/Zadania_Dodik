@@ -13,6 +13,12 @@ public class Song {
         autor=p_autor;
          fee=0;
      }
+     public Song(int p_id,String p_autor,String p_name,float pfee){
+         id = p_id;
+         name =p_name;
+         autor=p_autor;
+         fee=pfee;
+     }
 
     public int getId() {
         return id;

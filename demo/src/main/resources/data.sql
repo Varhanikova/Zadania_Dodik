@@ -10,7 +10,7 @@ INSERT into Song values(2,'Polaris','Masochist',0.0);
 INSERT into Song values(3,'Caskets','Glass Heart',0.0);
 INSERT into Song values(4,'Polaris', 'Crooked Path',0.0);
 INSERT into Song values(5,'Polaris', 'The Remedy',0.0);
-INSERT into Song values(6,'Ice Nine Kills','The Shower Scene',0.0);
+INSERT into Song values(6,'Ice Nine Kills','The Shower Scene',0);
 INSERT into Song values(7,'Architects','Gone With The Wind',0.0);
 INSERT into Song values(8,'Architects','Hereafter',0.0);
 INSERT into Song values(9,'Architects','Doomsday',0.0);
