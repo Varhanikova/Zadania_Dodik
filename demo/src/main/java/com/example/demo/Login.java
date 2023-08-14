@@ -5,24 +5,26 @@ import java.util.ArrayList;
 public class Login {
     private String username;
     private String password;
-    private boolean premium;
+    private String premium;
     private double fee;
     private ArrayList<Playlist> playlists= new ArrayList<>();
-    public Login(String user, String pass, boolean prem) {
+
+
+    public Login(String user, String pass, String prem) {
         username = user;
         password= pass;
         premium = prem;
-        if(prem){
-            fee=5;
-        }else{
+        if (premium != "A") {
             fee=0;
+        } else {
+            fee=5;
         }
     }
     public String getUsername(){
         return username;
     }
     public void setPremium(){
-        premium=true;
+        premium="A";
     }
     public void addFee(double p_fee){
         fee+=p_fee;
@@ -34,8 +36,8 @@ public class Login {
         return password;
     }
     public boolean addPlayList(String name){
-        if(premium || playlists.size() < 2) {
-            playlists.add(new Playlist(name));
+        if(premium=="A" || playlists.size() < 2) {
+            playlists.add(new Playlist(playlists.size()+1,name,this));
             return true;
         } else {
             return false;
@@ -52,7 +54,7 @@ public class Login {
         }
         return pom;
     }
-    public boolean isPremium(){
+    public String isPremium(){
         return premium;
     }
 

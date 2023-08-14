@@ -1,16 +1,23 @@
 package com.example.demo;
 
 public class Song {
+    private int id;
     private String name;
     private String autor;
     private double fee;
 
 
-     public Song( String p_autor,String p_name){
+     public Song( int p_id,String p_autor,String p_name){
+         id = p_id;
         name =p_name;
         autor=p_autor;
          fee=0;
      }
+
+    public int getId() {
+        return id;
+    }
+
     public String toString()
     {
         return autor + ": " + name;

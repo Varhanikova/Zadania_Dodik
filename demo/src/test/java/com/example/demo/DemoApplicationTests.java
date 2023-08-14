@@ -20,9 +20,9 @@ class DemoApplicationTests {
 		playlistService.setSongsService(songService);
 
 		//create logins
-		loginService.addLogin(new Login("user1","pass",true));
-		loginService.addLogin(new Login("user2","pass",false));
-		loginService.addLogin(new Login("user3","pass",true));
+		loginService.addLogin(new Login("user1","pass","A"));
+		loginService.addLogin(new Login("user2","pass","N"));
+		loginService.addLogin(new Login("user3","pass","A"));
 
 		//create ads
 		Ad ad1 = new Ad("Microsoft", 0.01, 0.04);

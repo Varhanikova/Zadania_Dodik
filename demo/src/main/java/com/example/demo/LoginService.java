@@ -1,4 +1,5 @@
 package com.example.demo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 
@@ -7,9 +8,11 @@ import java.util.ArrayList;
 public class LoginService {
     private ArrayList<Login> logins =  new ArrayList<>();
     private Login actualUser=null;
+    @Autowired
+    JdbcUserRepository jdbcUserRepository ;
 
     public LoginService(){
-       logins.add(new Login("user","pass",false));
+//       logins.add(new Login("user","pass",false));
     }
     public Login getActualUser(){
         return actualUser;
@@ -34,10 +37,10 @@ public class LoginService {
         return "Login with username " +login.getUsername() + " added!";
     }
     @PostMapping("prihlasenie/pridaj/{username}/{password}/{premium}")
-    public String addLogin(@PathVariable String username, @PathVariable String password, @PathVariable(required = false) boolean premium){
+    public String addLogin(@PathVariable String username, @PathVariable String password, @PathVariable(required = false) String premium){
         Login l = new Login(username,password,premium);
         logins.add(l);
-        if(premium){
+        if(premium =="A"){
             l.addFee(5);
             return "Login with username " +username + " added as premium user!";
         }

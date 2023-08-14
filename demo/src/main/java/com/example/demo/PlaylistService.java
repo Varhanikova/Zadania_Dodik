@@ -111,7 +111,7 @@ public class PlaylistService {
         ArrayList<Ad> ads = adService.getAds();
         double prob=0; double prev=0;
         for (Song sng : songs) {
-            if (rnd.nextDouble() < 0.1 && !loginService.getActualUser().isPremium()) {
+            if (rnd.nextDouble() < 0.1 && !loginService.getActualUser().isPremium().equals("A")) {
                 prob = rnd.nextDouble();
                 for (int i =0;i<ads.size();i++) {
                     if(i==0) {
@@ -138,7 +138,7 @@ public class PlaylistService {
             return;
         }
         ArrayList<Ad> ads = adService.getAds();
-        if(!loginService.getActualUser().isPremium()) {
+        if(!loginService.getActualUser().isPremium().equals("A")) {
             int i = 0;
             for (Song sng : songs) {
                 sng.addFee(ads.get(i % 4).getProfit());

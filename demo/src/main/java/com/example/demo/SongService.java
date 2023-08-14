@@ -11,33 +11,33 @@ public class SongService {
 
     public ArrayList<Song> getSongs(){return songs;}
     public SongService(){
-        fillListWithRandomSongs();
-        fillListWithMetalicaSongs();
+//        fillListWithRandomSongs();
+//        fillListWithMetalicaSongs();
     }
     public void fillListWithRandomSongs(){
-        songs.add(new Song("Falling in Reverse","Carry On"));
-        songs.add(new Song("Polaris","Masochist"));
-        songs.add(new Song("Caskets","Glass Heart"));
-        songs.add(new Song("Polaris", "Crooked Path"));
-        songs.add(new Song("Ice Nine Kills","The Shower Scene"));
-        songs.add(new Song("Architects","Gone With The Wind"));
-        songs.add(new Song("Holding Absence","Like a Shadow"));
-        songs.add(new Song("Thousands Below", "Hell finds you everywhere"));
-        songs.add(new Song("Nine Lashes ","Adrenaline"));
-        songs.add(new Song("Bad Omens","Just Pretend"));
+        songs.add(new Song(1,"Falling in Reverse","Carry On"));
+        songs.add(new Song(2,"Polaris","Masochist"));
+        songs.add(new Song(3,"Caskets","Glass Heart"));
+        songs.add(new Song(4,"Polaris", "Crooked Path"));
+        songs.add(new Song(5,"Ice Nine Kills","The Shower Scene"));
+        songs.add(new Song(6,"Architects","Gone With The Wind"));
+        songs.add(new Song(7,"Holding Absence","Like a Shadow"));
+        songs.add(new Song(8,"Thousands Below", "Hell finds you everywhere"));
+        songs.add(new Song(9,"Nine Lashes ","Adrenaline"));
+        songs.add(new Song(10,"Bad Omens","Just Pretend"));
     }
 
     public void fillListWithMetalicaSongs(){
-            songs.add(new Song("Metallica", "Nothing else matters"));
-            songs.add(new Song("Metallica", "The Unforgiven I"));
-            songs.add(new Song("Metallica", "The Unforgiven II"));
-            songs.add(new Song("Metallica", "Master of Puppets"));
-            songs.add(new Song("Metallica", "Enter Sandman"));
-            songs.add(new Song("Metallica", "Whiskey in the Jar"));
-            songs.add(new Song("Metallica", "For Whom The Bell Tolls"));
-            songs.add(new Song("Metallica", "The Day That Never Comes"));
-            songs.add(new Song("Metallica", "Sad But True"));
-            songs.add(new Song("Metallica", "The Memory Remains"));
+            songs.add(new Song(11,"Metallica", "Nothing else matters"));
+            songs.add(new Song(12,"Metallica", "The Unforgiven I"));
+            songs.add(new Song(13,"Metallica", "The Unforgiven II"));
+            songs.add(new Song(14,"Metallica", "Master of Puppets"));
+            songs.add(new Song(15,"Metallica", "Enter Sandman"));
+            songs.add(new Song(16,"Metallica", "Whiskey in the Jar"));
+            songs.add(new Song(17,"Metallica", "For Whom The Bell Tolls"));
+            songs.add(new Song(18,"Metallica", "The Day That Never Comes"));
+            songs.add(new Song(19,"Metallica", "Sad But True"));
+            songs.add(new Song(20,"Metallica", "The Memory Remains"));
     }
 
     @GetMapping("pesnicky/autor/{autor}")
@@ -52,7 +52,7 @@ public class SongService {
     }
     @PostMapping("pesnicky/pridaj/{autor}/{nazov}")
     public String addNewSong(@PathVariable String autor,@PathVariable String nazov){
-            songs.add(new Song(autor, nazov));
+            songs.add(new Song(songs.size()+1,autor, nazov));
             return "Song " +autor + ": " + nazov + " pridany!";
     }
     @PostMapping("pesnicky/pridaj")
