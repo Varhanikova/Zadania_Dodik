@@ -22,9 +22,9 @@ public class Playlist {
         return login;
     }
 
-    public void addSong(Song sng){
-        songs.add(sng);
-    }
+//    public void addSong(Song sng){
+//        songs.add(sng);
+//    }
     public String getNazov(){return nazov;}
     public ArrayList<Song> getSongs(){
         return songs;

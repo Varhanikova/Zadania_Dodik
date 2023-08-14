@@ -10,10 +10,9 @@ public class LoginService {
     private ArrayList<Login> logins =  new ArrayList<>();
     private Login actualUser=null;
     @Autowired
-    JdbcUserRepository jdbcUserRepository ;
+    JdbcLoginRepository jdbcUserRepository ;
 
     public LoginService(){
-//       logins.add(new Login("user","pass",false));
     }
     public Login getActualUser(){
         return actualUser;
@@ -40,12 +39,14 @@ public class LoginService {
     @PostMapping("prihlasenie/pridaj/{username}/{password}/{premium}")
     public String addLogin(@PathVariable String username, @PathVariable String password, @PathVariable(required = false) String premium){
         Login l = new Login(username,password,premium);
-        logins.add(l);
+       // logins.add(l);
+        boolean  podarilo=false;
+        podarilo = jdbcUserRepository.addLogin(l);
         if(Objects.equals(premium, "A")){
-            l.addFee(5);
-            return "Login with username " +username + " added as premium user!";
+            //l.addFee(5);///!!
+         podarilo= jdbcUserRepository.addFee(l.getUsername(),5);
         }
-        return jdbcUserRepository.addLogin(l)? "Login with username " +username + " added!" : "Login was not added!";
+        return podarilo ? "Login with username " +username + " added!" : "Login was not added!";
     }
     @GetMapping("prihlasenia")
     public String vypisPrihlasenia(){

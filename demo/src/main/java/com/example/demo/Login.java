@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Login {
     private String username;
@@ -14,7 +15,7 @@ public class Login {
         username = user;
         password= pass;
         premium = prem;
-        if (premium != "A") {
+        if (!Objects.equals(premium, "A")) {
             fee=0;
         } else {
             fee=5;
@@ -35,25 +36,18 @@ public class Login {
     public String getPassword(){
         return password;
     }
-    public boolean addPlayList(String name){
-        if(premium=="A" || playlists.size() < 2) {
-            playlists.add(new Playlist(playlists.size()+1,name,this));
-            return true;
-        } else {
-            return false;
-        }
-    }
-    public ArrayList<Playlist> getPlaylists(){
-        return playlists;
-    }
-    public String vypisHudby(){
-        String pom="";
-        for(Playlist pl: playlists){
-            pom+="<p> " + pl.getNazov() + ":  </p>";
-            pom+=pl.playSongs();
-        }
-        return pom;
-    }
+//
+//    public ArrayList<Playlist> getPlaylists(){
+//        return playlists;
+//    }
+//    public String vypisHudby(){
+//        String pom="";
+//        for(Playlist pl: playlists){
+//            pom+="<p> " + pl.getNazov() + ":  </p>";
+//            pom+=pl.playSongs();
+//        }
+//        return pom;
+//    }
     public String isPremium(){
         return premium;
     }

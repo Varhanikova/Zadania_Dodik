@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 @RestController
@@ -18,6 +19,10 @@ public class PlaylistService {
     private SongService songService;
     @Autowired
     private AdService adService;
+    @Autowired private jdbcPlaylistRepository jdbcPl;
+    @Autowired private jdbcSongRepository jdbcSongRepository;
+    @Autowired private jdbcPlaylistSongRepository jdbcPlaylistSongRepository;
+    @Autowired private jdbcAdRepository jdbcAdRepository;
 
     public PlaylistService(){
 
@@ -30,18 +35,21 @@ public class PlaylistService {
     public void setLoginService(LoginService ls){
         loginService = ls;
     }
-    @PostMapping("prihlasenie/pridajPlaylist/{name}")
-    public String addPlayList(@PathVariable String name){
+    @PostMapping("prihlasenie/pridajPlaylist/{id}/{name}")
+    public String addPlayList(@PathVariable int id, @PathVariable String name){
         if (loginService.getActualUser()==null) {
             return "No user!";
         }
-        if(!loginService.getActualUser().addPlayList(name)){
-            return "No other playlist is allowed! " + loginService.getActualUser().getUsername()+" switch to premium!";
+        if(!loginService.getActualUser().isPremium().equals("A")){
+            if(jdbcPl.getPocetPlaylistov(loginService.getActualUser().getUsername())>=2){
+                return "No other playlist is allowed! " + loginService.getActualUser().getUsername()+" switch to premium!";
+            }
         }
-        return "Playlist " + name + " added to user " + loginService.getActualUser().getUsername();
+        return jdbcPl.addPlaylist(new Playlist(id,name, loginService.getActualUser())) ? "Playlist " + name + " added to user " + loginService.getActualUser().getUsername():
+                "Nepodarilo sa vložiť!";
     }
-    @PostMapping("prihlasenie/pridajSong/{playlist}/{name}")
-    public String addSongToPlaylist(@PathVariable String playlist, @PathVariable String name){
+    @PostMapping("prihlasenie/pridajSong/{id}/{playlist}/{name}")
+    public String addSongToPlaylist(@PathVariable int id, @PathVariable String playlist, @PathVariable String name){
         if(loginService.getActualUser()==null) {
             return "No user!";
         }
@@ -53,16 +61,12 @@ public class PlaylistService {
         if(sng==null){
             return "no song " + name + " found!";
         }
-        for(Song sn: pl.getSongs()){
-            if(sn.getAutor().equalsIgnoreCase(sng.getAutor() )&& sn.getName().equalsIgnoreCase(sng.getName())){
-                return "Song is alredy in playlist!";
-            }
-        }
-        pl.addSong(sng);
-        return "Song " + name + " added to playlist " + pl.getNazov();
+
+        return jdbcPlaylistSongRepository.addSong(id,sng,pl)? "Song " + name + " added to playlist " + pl.getNazov() :
+                "Nepodarilo sa vložiť!";
     }
     public Playlist findPlaylist(String name){
-        for(Playlist pl: loginService.getActualUser().getPlaylists()){
+        for(Playlist pl: jdbcPl.getPlaylistPodlaUsera(loginService.getActualUser().getUsername())){
             if(pl.getNazov().equalsIgnoreCase(name)){
                 return pl;
             }
@@ -70,47 +74,48 @@ public class PlaylistService {
         return null;
     }
     public Song findSong(String name){
-        for(Song sng: songService.getSongs()){
+        for(Song sng: jdbcSongRepository.getSongs()){
             if(sng.getName().equalsIgnoreCase(name)){
                 return sng;
             }
         }
         return null;
     }
-    @GetMapping("PS/fillPlaylist/{playlist}")
-    public void fillPlaylistWithAll(@PathVariable String playlist){
-        Playlist pl = findPlaylist(playlist);
-        for(Song sng: songService.getSongs()){
-            pl.addSong(sng);
-        }
-    }
-
-    @GetMapping("prihlasenie/allSongs")
+    @GetMapping("prihlasenie/allSongs") //jo
     public String allSongs(){
+        String pom="";
         if(loginService.getActualUser()!=null){
-            return loginService.getActualUser().vypisHudby();
+            for(Playlist pl: jdbcPl.getPlaylistPodlaUsera(loginService.getActualUser().getUsername())){
+                pom+="<p> " + pl.getNazov() + ": </p>";
+                for(PlaylistSong sng: jdbcPlaylistSongRepository.getSongsByPlaylist(pl.getId())){
+                   pom+="<p> " + sng.getSong().toString() + " </p>";
+                }
+            }
+        } else{
+            pom="no user!";
         }
-        return "No user!";
+        return pom;
     }
-    public ArrayList<Song> getSongsByActualUserPlaylist(String name){
+    public List<PlaylistSong> getSongsByActualUserPlaylist(String name){
         Playlist pl = findPlaylist(name);
         if(pl==null){
             return null;
         }
-        Collections.shuffle(pl.getSongs());
-        return pl.getSongs();
+        List<PlaylistSong> songs = jdbcPlaylistSongRepository.getSongsByPlaylist(pl.getId());
+        Collections.shuffle(songs);
+        return songs;
     }
-    @GetMapping("PS/playRandom/{playlist}")
+    @GetMapping("PS/playRandom/{playlist}") //jo
     public String playSongs(@PathVariable String playlist){
         Random rnd = new Random();
         String pom="";
-        ArrayList<Song> songs = getSongsByActualUserPlaylist(playlist);
+        List<PlaylistSong>songs = getSongsByActualUserPlaylist(playlist);
         if(songs==null){
             return "No playlist found!";
         }
-        ArrayList<Ad> ads = adService.getAds();
+       List<Ad> ads = jdbcAdRepository.getAds();
         double prob=0; double prev=0;
-        for (Song sng : songs) {
+        for (PlaylistSong sng : songs) {
             if (rnd.nextDouble() < 0.1 && !loginService.getActualUser().isPremium().equals("A")) {
                 prob = rnd.nextDouble();
                 for (int i =0;i<ads.size();i++) {
@@ -120,28 +125,28 @@ public class PlaylistService {
                         prev = ads.get(i-1).getProbability();
                     }
                     if (prev<=prob && (prev+ ads.get(i).getProbability()) >= prob) {
-                        sng.addFee(ads.get(i).getProfit());
-                        ads.get(i).setUsed();
-                        pom += "<p>" + sng.toString() + " was played with ad " + ads.get(i).getSponzor() + " </p>";
+                       pom+= (jdbcSongRepository.addFee(ads.get(i).getProfit(),sng.getSong().getId()) &&  jdbcAdRepository.addUsed(ads.get(i).getSponzor())) ?
+                               "<p>" + sng.getSong().toString() + " was played with ad " + ads.get(i).getSponzor() + " </p>" :
+                               " <p> Nepodarilo sa prehrať!!";
                         break;
                     }
                 }
             } else {
-                pom+="<p>" +  sng.toString() + " was played without ad </p>";
+                pom+="<p>" +  sng.getSong().toString() + " was played without ad </p>";
             }
         }
         return pom;
     }
     public void playSongsTest(String playlist){
-        ArrayList<Song> songs = getSongsByActualUserPlaylist(playlist);
+        List<PlaylistSong> songs = getSongsByActualUserPlaylist(playlist);
         if(songs==null){
             return;
         }
-        ArrayList<Ad> ads = adService.getAds();
+        List<Ad> ads = adService.getAds();
         if(!loginService.getActualUser().isPremium().equals("A")) {
             int i = 0;
-            for (Song sng : songs) {
-                sng.addFee(ads.get(i % 4).getProfit());
+            for (PlaylistSong sng : songs) {
+                sng.getSong().addFee(ads.get(i % 4).getProfit());
                 ads.get(i % 4).setUsed();
                 i++;
             }

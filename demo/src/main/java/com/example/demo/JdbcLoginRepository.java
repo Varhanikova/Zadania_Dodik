@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Repository
-public class JdbcUserRepository {
+public class JdbcLoginRepository {
     @Autowired
     private JdbcOperations jdbcOperations;
 
@@ -27,4 +27,15 @@ public class JdbcUserRepository {
         String sql = "insert into Login values(?,?,?,0)";
         return jdbcOperations.update(sql,login.getUsername(),login.getPassword(),login.isPremium())>0;
     }
+    private float mapFee(ResultSet rs, int index) throws SQLException {
+        return rs.getFloat("fee");
+    }
+
+    public boolean addFee(String user, double fee){
+        String sql = "select fee from Login where username=?";
+        float fe = jdbcOperations.query(sql, this::mapFee,user).get(0);
+        sql = "update Login set fee =? where username =?";
+       return jdbcOperations.update(sql, fe+fee,user)>0;
+    }
+
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class AdService {
@@ -11,24 +12,30 @@ public class AdService {
     private LoginService loginService;
     @Autowired
     private SongService songService;
+    @Autowired
+    private jdbcAdRepository adRepository;
+    @Autowired jdbcSongRepository jdbcSongRepository;
+    @Autowired
+    JdbcLoginRepository jdbcLoginRepository;
+    @Autowired jdbcPlaylistSongRepository jdbcPlaylistSongRepository;
+    @Autowired jdbcPlaylistRepository jdbcPlaylistRepository;
     private ArrayList<Ad> ads = new ArrayList<>();
 
     public AdService(){
-        ads.add(new Ad("Coca Cola",0.1,0.35));
-        ads.add(new Ad("Lotus",0.2,0.55));
+
     }
-    public ArrayList<Ad> getAds() {
-        return ads;
+    public List<Ad> getAds() {
+        return adRepository.getAds();
     }
 
    public void setSongService(SongService sg){songService= sg;}
     public void setLoginService(LoginService lg){loginService=lg;}
-    public void addAd(Ad p_ad){
-        ads.add(p_ad);
+    public String addAd(Ad p_ad){
+       return adRepository.addAd(p_ad)? "Ad " + p_ad.getSponzor() + " pridaná!" : "Nepodarilo sa pridať!";
     }
     public boolean checkProbability(){
         double sum=0;
-        for(Ad ad: ads){
+        for(Ad ad: adRepository.getAds()){
             sum+=ad.getProbability();
         }
         return sum == 1;
@@ -36,20 +43,21 @@ public class AdService {
     @GetMapping("Ad/songsAd")
     public String listSongsWithAd(){
         String pom="";
-        ArrayList<Song> songs = loginService.getActualUser().getAllSavedSongs();
-        for(Song sng :songs){
-            if(sng.getFee()>0.0){
-               pom+= "<p> " + sng.songAd() + " </p>";
+        for(Playlist pl: jdbcPlaylistRepository.getPlaylistPodlaUsera(loginService.getActualUser().getUsername())){
+            for(PlaylistSong sng: jdbcPlaylistSongRepository.getSongsByPlaylist(pl.getId()) ){
+                if(sng.getSong().getFee()>0.0){
+                    pom+= "<p> " + sng.getSong().songAd() + " </p>";
+                }
             }
         }
         return pom;
     }
     public double sumOfProfit(){
         double sum=0;
-        for(Login lg: loginService.getLogins()){
+        for(Login lg: jdbcLoginRepository.getLoginsDB()){
             sum+=lg.getFee();
            }
-        for(Song sng: songService.getSongs()){
+        for(Song sng: jdbcSongRepository.getSongs()){
             sum+=sng.getFee();
         }
         return sum;
@@ -57,7 +65,7 @@ public class AdService {
     @GetMapping("Ad/profit")
     public String listAdsWithProfit(){
         String pom="";
-        for(Ad ad: ads){
+        for(Ad ad: adRepository.getAds()){
             pom+="<p> Ad " + ad.getSponzor() + " has profit: " + ad.getProfit()*ad.getUsed() + " </p>";
         }
         return pom;

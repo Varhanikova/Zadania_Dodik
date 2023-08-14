@@ -1,8 +1,8 @@
 INSERT INTO Login values('user','pass','N',0);
-INSERT INTO Login values('user1','pass','A',0);
-INSERT INTO Login values('user2','pass','A',0);
+INSERT INTO Login values('user1','pass','A',5);
+INSERT INTO Login values('user2','pass','A',5);
 INSERT INTO Login values('user3','pass','N',0);
-INSERT INTO Login values('user4','pass','A',0);
+INSERT INTO Login values('user4','pass','A',5);
 
 
 INSERT into Song values(1,'Falling in Reverse','Carry On',0);
@@ -42,10 +42,10 @@ INSERT into Ad values('Microsoft',0.3,0.35,0);
 
 INSERT into Playlist values(1,'MyPlaylist1','user');
 INSERT into Playlist values(2,'MyPlaylist2','user');
-INSERT into Playlist values(3,'MyPlaylist3','user');
+INSERT into Playlist values(3,'MyPlaylist3','user1');
 INSERT into Playlist values(4,'MyPlaylist1','user1');
 INSERT into Playlist values(5,'MyPlaylist2','user1');
-INSERT into Playlist values(6,'MyPlaylist3','user1');
+INSERT into Playlist values(6,'MyPlaylist4','user1');
 INSERT into Playlist values(7,'MyPlaylist1','user2');
 INSERT into Playlist values(8,'MyPlaylist2','user2');
 INSERT into Playlist values(9,'MyPlaylist3','user2');

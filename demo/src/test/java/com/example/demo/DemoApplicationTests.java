@@ -31,12 +31,14 @@ class DemoApplicationTests {
 		adService.addAd(ad2);
 
 		//add songs to every user and play them
+		int a =0;
 		for(Login lg :loginService.getLogins()) {
 			loginService.setActualUser(lg);
-			lg.addPlayList("moj");
+			playlistService.addPlayList(a,"moj");
 			Playlist pl = playlistService.findPlaylist("moj");
-			playlistService.fillPlaylistWithAll("moj");
+		//	playlistService.fillPlaylistWithAll("moj");
 			playlistService.playSongsTest("moj");
+			a++;
 		}
 		System.out.println(adService.sumOfProfit());
 		assert (adService.sumOfProfit()>13.29 && adService.sumOfProfit() < 13.31);
