@@ -2,6 +2,7 @@ package com.example.demo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 @RestController
@@ -23,7 +24,7 @@ public class LoginService {
 
     @PostMapping("prihlasenie/{username}/{password}")
     public String login(@PathVariable String username, @PathVariable String password){
-        for(Login login: logins){
+        for(Login login: jdbcUserRepository.getLoginsDB()){
             if(login.getUsername().equals(username) && login.getPassword().equals(password)){
                 actualUser=login;
                 return "Logged as " + username;
@@ -34,22 +35,22 @@ public class LoginService {
     @PostMapping("prihlasenie/pridaj")
     public String addLogin(@RequestBody Login login){
         logins.add(login);
-        return "Login with username " +login.getUsername() + " added!";
+        return jdbcUserRepository.addLogin(login)? "Login with username " +login.getUsername() + " added!" : "Login was not added!";
     }
     @PostMapping("prihlasenie/pridaj/{username}/{password}/{premium}")
     public String addLogin(@PathVariable String username, @PathVariable String password, @PathVariable(required = false) String premium){
         Login l = new Login(username,password,premium);
         logins.add(l);
-        if(premium =="A"){
+        if(Objects.equals(premium, "A")){
             l.addFee(5);
             return "Login with username " +username + " added as premium user!";
         }
-        return "Login with username " +username + " added!";
+        return jdbcUserRepository.addLogin(l)? "Login with username " +username + " added!" : "Login was not added!";
     }
     @GetMapping("prihlasenia")
     public String vypisPrihlasenia(){
         String pom="";
-        for(Login log: logins){
+        for(Login log: jdbcUserRepository.getLoginsDB()){
             pom+="<p> "+ log.getUsername() + " </p>";
         }
         return pom;

@@ -1,5 +1,6 @@
 package com.example.demo;
 import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -8,11 +9,11 @@ import java.util.*;
 @RestController
 public class SongService {
     private ArrayList<Song> songs =  new ArrayList<>();
-
+    @Autowired
+    private  jdbcSongRepository jdbcSongRepository;
     public ArrayList<Song> getSongs(){return songs;}
     public SongService(){
-//        fillListWithRandomSongs();
-//        fillListWithMetalicaSongs();
+
     }
     public void fillListWithRandomSongs(){
         songs.add(new Song(1,"Falling in Reverse","Carry On"));
@@ -43,28 +44,28 @@ public class SongService {
     @GetMapping("pesnicky/autor/{autor}")
     public String getSongByAutor(@PathVariable String autor){
         String pom="";
-        for(Song sng: songs) {
+        for(Song sng: jdbcSongRepository.getSongs()) {
             if(sng.getAutor().equalsIgnoreCase(autor)){
                 pom+="<p>" +  sng + "</p>";
             }
         }
         return pom;
     }
-    @PostMapping("pesnicky/pridaj/{autor}/{nazov}")
-    public String addNewSong(@PathVariable String autor,@PathVariable String nazov){
-            songs.add(new Song(songs.size()+1,autor, nazov));
-            return "Song " +autor + ": " + nazov + " pridany!";
+    @PostMapping("pesnicky/pridaj/{id}/{autor}/{nazov}")
+    public String addNewSong(@PathVariable int id,@PathVariable String autor,@PathVariable String nazov){
+            //songs.add(new Song(songs.size()+1,autor, nazov));
+            return jdbcSongRepository.addSong(new Song(id,autor,nazov))? "Song " +autor + ": " + nazov + " pridany!" : "Song sa nepodarilo pridať!";
     }
     @PostMapping("pesnicky/pridaj")
     public String addNewSong(@RequestBody Song song) {
-        if(!existuje(song.getName(),song.getAutor())){
-            songs.add(song);
-            return "Song " + song.getAutor() + ": " + song.getName() + " pridany!";
-        }
-           return "Song already exists!";
+//        if(!existuje(song.getName(),song.getAutor())){
+//            songs.add(song);
+//            return "Song " + song.getAutor() + ": " + song.getName() + " pridany!";
+//        }
+           return jdbcSongRepository.addSong(song) ? "Song " + song.toString() + " pridany!" :"Song already exists!";
     }
     public boolean existuje(String nazov, String autor){
-        for(Song sng: songs){
+        for(Song sng: jdbcSongRepository.getSongs()){
             if(sng.getName().equalsIgnoreCase(nazov) && sng.getAutor().equalsIgnoreCase(autor)){
                 return true;
             }
@@ -75,13 +76,13 @@ public class SongService {
     @GetMapping("pesnicky/random")
     public String randomSong(){
         Random rand = new Random();
-        int rnd = rand.nextInt(songs.size());
-        return songs.get(rnd).toString();
+        int rnd = rand.nextInt(jdbcSongRepository.getPocetSongs());
+        return jdbcSongRepository.getSongs().get(rnd).toString();
     }
     @GetMapping("pesnicky/all")
     public String getAll(){
         String pom ="";
-        for(Song sng: songs){
+        for(Song sng: jdbcSongRepository.getSongs()){
             pom+="<p>" +  sng.toString() + "</p>";
         }
         return pom;

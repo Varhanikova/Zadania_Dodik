@@ -23,4 +23,8 @@ public class JdbcUserRepository {
         String premium = rs.getString("premium");
         return new Login(username,password,premium);
     }
+    public boolean addLogin(Login login){
+        String sql = "insert into Login values(?,?,?,0)";
+        return jdbcOperations.update(sql,login.getUsername(),login.getPassword(),login.isPremium())>0;
+    }
 }
