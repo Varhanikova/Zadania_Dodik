@@ -38,7 +38,7 @@ public class jdbcPlaylistRepository {
         return jdbcOperations.query(sql,this::mapPocet,username).get(0);
     }
     public boolean addPlaylist(Playlist pl){
-        String sql = "inset into Playlist values(?,?,?)";
+        String sql = "insert into Playlist values(?,?,?)";
         return jdbcOperations.update(sql,pl.getId(),pl.getNazov(),pl.getLogin().getUsername())>0;
     }
     public List<Playlist> getPlaylistPodlaUsera(String username){
