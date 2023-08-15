@@ -1,5 +1,10 @@
-package com.example.demo;
+package com.example.demo.Services;
 
+import com.example.demo.Classes.Ad;
+import com.example.demo.Classes.Login;
+import com.example.demo.Classes.Song;
+import com.example.demo.Repositories.JdbcLoginRepository;
+import com.example.demo.Repositories.jdbcAdRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,11 +19,14 @@ public class AdService {
     private SongService songService;
     @Autowired
     private jdbcAdRepository adRepository;
-    @Autowired jdbcSongRepository jdbcSongRepository;
+    @Autowired
+    com.example.demo.Repositories.jdbcSongRepository jdbcSongRepository;
     @Autowired
     JdbcLoginRepository jdbcLoginRepository;
-    @Autowired jdbcPlaylistSongRepository jdbcPlaylistSongRepository;
-    @Autowired jdbcPlaylistRepository jdbcPlaylistRepository;
+    @Autowired
+    com.example.demo.Repositories.jdbcPlaylistSongRepository jdbcPlaylistSongRepository;
+    @Autowired
+    com.example.demo.Repositories.jdbcPlaylistRepository jdbcPlaylistRepository;
     private ArrayList<Ad> ads = new ArrayList<>();
 
     public AdService(){

@@ -1,5 +1,8 @@
-package com.example.demo;
+package com.example.demo.Repositories;
 
+import com.example.demo.Classes.Playlist;
+import com.example.demo.Classes.PlaylistSong;
+import com.example.demo.Classes.Song;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.stereotype.Repository;
@@ -12,10 +15,10 @@ import java.util.List;
 public class jdbcPlaylistSongRepository {
     @Autowired
     private JdbcOperations jdbcOperations;
-    @Autowired private jdbcSongRepository jdbcSongRepository;
-    @Autowired private jdbcPlaylistRepository jdbcPlaylistRepository;
+    @Autowired private com.example.demo.Repositories.jdbcSongRepository jdbcSongRepository;
+    @Autowired private com.example.demo.Repositories.jdbcPlaylistRepository jdbcPlaylistRepository;
 
-    private PlaylistSong mapRow(ResultSet rs,int index) throws SQLException {
+    private PlaylistSong mapRow(ResultSet rs, int index) throws SQLException {
         int id = rs.getInt("id");
         int id_playlist = rs.getInt("id_playlist");
         int id_song = rs.getInt("id_song");
@@ -29,7 +32,7 @@ public class jdbcPlaylistSongRepository {
         String sql = "select * from PlaylistSong where id_playlist = ?";
         return jdbcOperations.query(sql,this::mapRow,pl);
     }
-    public boolean addSong(int id,Song song,Playlist pl){
+    public boolean addSong(int id, Song song, Playlist pl){
         String sql = "insert into PlaylistSong values(?,?,?)";
         return jdbcOperations.update(sql,id,pl.getId(),song.getId())>0;
     }

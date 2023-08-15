@@ -1,4 +1,5 @@
-package com.example.demo;
+package com.example.demo.Services;
+import com.example.demo.Classes.Song;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -8,7 +9,7 @@ import java.util.*;
 public class SongService {
     private ArrayList<Song> songs =  new ArrayList<>();
     @Autowired
-    private  jdbcSongRepository jdbcSongRepository;
+    private com.example.demo.Repositories.jdbcSongRepository jdbcSongRepository;
     public ArrayList<Song> getSongs(){return songs;}
     public SongService(){
 
@@ -60,7 +61,7 @@ public class SongService {
 //            songs.add(song);
 //            return "Song " + song.getAutor() + ": " + song.getName() + " pridany!";
 //        }
-           return jdbcSongRepository.addSong(song) ? "Song " + song.toString() + " pridany!" :"Song already exists!";
+           return jdbcSongRepository.addSong(song) ? "Song " + song + " pridany!" :"Song already exists!";
     }
     public boolean existuje(String nazov, String autor){
         for(Song sng: jdbcSongRepository.getSongs()){

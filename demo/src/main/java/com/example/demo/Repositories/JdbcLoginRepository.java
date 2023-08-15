@@ -1,5 +1,6 @@
-package com.example.demo;
+package com.example.demo.Repositories;
 
+import com.example.demo.Classes.Login;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.stereotype.Repository;

@@ -1,4 +1,6 @@
-package com.example.demo;
+package com.example.demo.Services;
+import com.example.demo.Repositories.JdbcLoginRepository;
+import com.example.demo.Classes.Login;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
@@ -40,7 +42,7 @@ public class LoginService {
     public String addLogin(@PathVariable String username, @PathVariable String password, @PathVariable(required = false) String premium){
         Login l = new Login(username,password,premium);
        // logins.add(l);
-        boolean  podarilo=false;
+        boolean  podarilo;
         podarilo = jdbcUserRepository.addLogin(l);
         if(Objects.equals(premium, "A")){
             //l.addFee(5);///!!

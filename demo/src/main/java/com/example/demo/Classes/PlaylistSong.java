@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.Classes;
 
 public class PlaylistSong {
     private int id;

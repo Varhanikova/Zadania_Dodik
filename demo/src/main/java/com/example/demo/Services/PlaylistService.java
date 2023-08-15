@@ -1,5 +1,10 @@
-package com.example.demo;
+package com.example.demo.Services;
 
+import com.example.demo.Classes.Ad;
+import com.example.demo.Classes.Playlist;
+import com.example.demo.Classes.PlaylistSong;
+import com.example.demo.Classes.Song;
+import com.example.demo.Repositories.jdbcPlaylistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,9 +25,9 @@ public class PlaylistService {
     private AdService adService;
 
     @Autowired private jdbcPlaylistRepository jdbcPl;
-    @Autowired private jdbcSongRepository jdbcSongRepository;
-    @Autowired private jdbcPlaylistSongRepository jdbcPlaylistSongRepository;
-    @Autowired private jdbcAdRepository jdbcAdRepository;
+    @Autowired private com.example.demo.Repositories.jdbcSongRepository jdbcSongRepository;
+    @Autowired private com.example.demo.Repositories.jdbcPlaylistSongRepository jdbcPlaylistSongRepository;
+    @Autowired private com.example.demo.Repositories.jdbcAdRepository jdbcAdRepository;
 
     public PlaylistService(){
 
@@ -115,7 +120,7 @@ public class PlaylistService {
             return "No playlist found!";
         }
        List<Ad> ads = jdbcAdRepository.getAds();
-        double prob=0; double prev=0;
+        double prob; double prev;
         for (PlaylistSong sng : songs) {
             if (rnd.nextDouble() < 0.1 && !loginService.getActualUser().isPremium().equals("A")) {
                 prob = rnd.nextDouble();

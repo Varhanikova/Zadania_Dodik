@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.Classes;
 
 public class Song {
     private int id;
@@ -44,6 +44,6 @@ public class Song {
          fee+=p_fee;
     }
     public String songAd(){
-         return toString() + ", fee: " + fee;
+         return this + ", fee: " + fee;
     }
 }

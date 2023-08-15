@@ -1,6 +1,6 @@
-package com.example.demo;
+package com.example.demo.Classes;
 
-import java.util.ArrayList;
+import com.example.demo.Classes.Login;
 
 public class Playlist {
     private int id;

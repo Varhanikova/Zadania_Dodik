@@ -1,5 +1,12 @@
 package com.example.demo;
 
+import com.example.demo.Classes.Ad;
+import com.example.demo.Classes.Login;
+import com.example.demo.Classes.Playlist;
+import com.example.demo.Services.AdService;
+import com.example.demo.Services.LoginService;
+import com.example.demo.Services.PlaylistService;
+import com.example.demo.Services.SongService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
