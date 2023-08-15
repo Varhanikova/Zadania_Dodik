@@ -21,7 +21,8 @@ public class JdbcLoginRepository {
         String username = rs.getString("username");
         String password = rs.getString("password");
         String premium = rs.getString("premium");
-        return new Login(username,password,premium);
+        double fee = rs.getDouble("fee");
+        return new Login(username,password,premium,fee);
     }
     public boolean addLogin(Login login){
         String sql = "insert into Login values(?,?,?,0)";

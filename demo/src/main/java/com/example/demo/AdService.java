@@ -40,7 +40,7 @@ public class AdService {
         }
         return sum == 1;
     }
-    @GetMapping("Ad/songsAd")
+    @GetMapping("Ad/songsAd") //jop
     public String listSongsWithAd(){
         String pom="";
         for(Song sng: jdbcSongRepository.getSongs()){
@@ -60,7 +60,7 @@ public class AdService {
         }
         return sum;
     }
-    @GetMapping("Ad/profit")
+    @GetMapping("Ad/profit")//jop
     public String listAdsWithProfit(){
         String pom="";
         for(Ad ad: adRepository.getAds()){

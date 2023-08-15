@@ -39,7 +39,7 @@ public class SongService {
             songs.add(new Song(20,"Metallica", "The Memory Remains"));
     }
 
-    @GetMapping("pesnicky/autor/{autor}")
+    @GetMapping("pesnicky/autor/{autor}")//jop
     public String getSongByAutor(@PathVariable String autor){
         String pom="";
         for(Song sng: jdbcSongRepository.getSongs()) {
@@ -49,7 +49,7 @@ public class SongService {
         }
         return pom;
     }
-    @PostMapping("pesnicky/pridaj/{id}/{autor}/{nazov}")
+    @PostMapping("pesnicky/pridaj/{id}/{autor}/{nazov}")//jop
     public String addNewSong(@PathVariable int id,@PathVariable String autor,@PathVariable String nazov){
             //songs.add(new Song(songs.size()+1,autor, nazov));
             return jdbcSongRepository.addSong(new Song(id,autor,nazov))? "Song " +autor + ": " + nazov + " pridany!" : "Song sa nepodarilo pridať!";
@@ -71,13 +71,13 @@ public class SongService {
         return false;
     }
 
-    @GetMapping("pesnicky/random")
+    @GetMapping("pesnicky/random")//jop
     public String randomSong(){
         Random rand = new Random();
         int rnd = rand.nextInt(jdbcSongRepository.getPocetSongs());
         return jdbcSongRepository.getSongs().get(rnd).toString();
     }
-    @GetMapping("pesnicky/all")
+    @GetMapping("pesnicky/all")//jop
     public String getAll(){
         String pom ="";
         for(Song sng: jdbcSongRepository.getSongs()){

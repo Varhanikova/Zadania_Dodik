@@ -21,7 +21,7 @@ public class LoginService {
         actualUser=user;
     }
 
-    @PostMapping("prihlasenie/{username}/{password}")
+    @PostMapping("prihlasenie/{username}/{password}")//jop
     public String login(@PathVariable String username, @PathVariable String password){
         for(Login login: jdbcUserRepository.getLoginsDB()){
             if(login.getUsername().equals(username) && login.getPassword().equals(password)){
@@ -36,7 +36,7 @@ public class LoginService {
         logins.add(login);
         return jdbcUserRepository.addLogin(login)? "Login with username " +login.getUsername() + " added!" : "Login was not added!";
     }
-    @PostMapping("prihlasenie/pridaj/{username}/{password}/{premium}")
+    @PostMapping("prihlasenie/pridaj/{username}/{password}/{premium}")//jop
     public String addLogin(@PathVariable String username, @PathVariable String password, @PathVariable(required = false) String premium){
         Login l = new Login(username,password,premium);
        // logins.add(l);
@@ -48,7 +48,7 @@ public class LoginService {
         }
         return podarilo ? "Login with username " +username + " added!" : "Login was not added!";
     }
-    @GetMapping("prihlasenia")
+    @GetMapping("prihlasenia")//jop
     public String vypisPrihlasenia(){
         String pom="";
         for(Login log: jdbcUserRepository.getLoginsDB()){

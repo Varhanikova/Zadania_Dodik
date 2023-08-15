@@ -18,6 +18,7 @@ public class PlaylistService {
     private SongService songService;
     @Autowired
     private AdService adService;
+
     @Autowired private jdbcPlaylistRepository jdbcPl;
     @Autowired private jdbcSongRepository jdbcSongRepository;
     @Autowired private jdbcPlaylistSongRepository jdbcPlaylistSongRepository;
@@ -44,10 +45,11 @@ public class PlaylistService {
                 return "No other playlist is allowed! " + loginService.getActualUser().getUsername()+" switch to premium!";
             }
         }
-        return jdbcPl.addPlaylist(new Playlist(id,name, loginService.getActualUser())) ? "Playlist " + name + " added to user " + loginService.getActualUser().getUsername():
+        Playlist pl = new Playlist(id,name, loginService.getActualUser());
+        return jdbcPl.addPlaylist(pl) ? "Playlist " + name + " added to user " + loginService.getActualUser().getUsername() :
                 "Nepodarilo sa vložiť!";
     }
-    @PostMapping("prihlasenie/pridajSong/{id}/{playlist}/{name}")
+    @PostMapping("prihlasenie/pridajSong/{id}/{playlist}/{name}") //jop
     public String addSongToPlaylist(@PathVariable int id, @PathVariable String playlist, @PathVariable String name){
         if(loginService.getActualUser()==null) {
             return "No user!";

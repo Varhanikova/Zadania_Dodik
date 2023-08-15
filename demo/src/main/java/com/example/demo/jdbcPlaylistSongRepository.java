@@ -31,6 +31,6 @@ public class jdbcPlaylistSongRepository {
     }
     public boolean addSong(int id,Song song,Playlist pl){
         String sql = "insert into PlaylistSong values(?,?,?)";
-        return jdbcOperations.update(sql,id,song.getId(),pl.getId())>0;
+        return jdbcOperations.update(sql,id,pl.getId(),song.getId())>0;
     }
 }

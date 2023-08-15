@@ -21,6 +21,13 @@ public class Login {
             fee=5;
         }
     }
+
+    public Login(String user, String pass, String prem,double pfee) {
+        username = user;
+        password= pass;
+        premium = prem;
+        fee=pfee;
+    }
     public String getUsername(){
         return username;
     }
